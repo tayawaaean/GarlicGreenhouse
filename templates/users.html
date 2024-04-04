@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/static/style_user.css">
+     
+    <title>Research&Development</title>
+</head>
+
+<body>
+
+    <div class="container"> 
+               <!-- Sidebar Section -->
+               <aside>
+
+                <div class="Logo">
+                    <div class="logo">
+                        <img src="../static/images/LOGO-MMSU.webp">
+                        <h2 style="color: #12612b;">G0<span class="danger">Nursery</span></h2>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                    </div>
+                </div>
+    
+                <div class="sidebar">
+                    <a href="index" >
+                        <span class="material-icons-sharp">monitor</span>
+                        <h3>Dashboard</h3>
+                    </a>                             
+    
+                    <a href="control">
+                        <span class="material-icons-sharp">settings_remote</span>
+                        <h3>Control</h3>
+                    </a>                
+    
+                    <a href="feed">
+                        <span class="material-icons-sharp live-icon">
+                            live_tv
+                        </span>
+                        <h3>Feed</h3>
+                    </a>                
+    
+    
+                    <a href="alerts">
+                        <span class="material-symbols-outlined">
+                            notifications
+                            </span>
+                        <h3>Scheduler</h3>
+                        <span class="message-count">1</span>
+                    </a>
+    
+                    <a href="users" class="active">
+                        <span class="material-symbols-outlined">
+                            manage_accounts
+                            </span>
+                        <h3>User</h3>
+                    </a>
+    
+                    <a href="about">
+                        <span class="material-symbols-outlined">
+                            help
+                        </span>
+                        <h3>About Us</h3>
+                    </a>
+    
+                    <a href="main_login" onclick="confirmLogout()">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </a>
+    
+                </div>
+            </aside>
+            <!-- End of Sidebar Section -->
+
+        <div class="main">
+            <h1>Edit Profile</h1>
+            <div class="prof_back">
+                <!-- <img class="mmsubacks" src="/mmsubackj.jpg" alt="mmsu main"> -->
+                <div class="container-profile">
+                    <!-- Use Flask templating to dynamically load the profile picture -->
+                    {% if filename %}
+                        <img class="profile_image" id="profileImage" src="{{ url_for('static', filename='profilepics/' + filename) }}" alt="profile_pic">
+                    {% else %}
+                        <img class="profile_image" id="profileImage" src="/static/profilepics/Prof_placeH.png" alt="profile_pic">
+                    {% endif %}
+                    <a id="openModalBtn" href="#" data-toggle="modal" data-target="#uploadModal"><img src="/static/images/4100771.webp" alt=""></a>
+                </div>
+            </div>
+            
+
+            <div id="myModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" id="closeModalBtn">&times;</span>
+                    <h2>Upload Image</h2>
+                    {% if filename %}
+                    <img class="image_input_modal" id="uploadedImage" alt="Uploaded Image" src="{{ url_for('static', filename='profilepics/' + filename) }}">
+                    {% endif %}
+                    <input class="select_img" type="file" id="imageInput" accept="image/*">
+                </div>
+            </div>
+
+            <div class="info" id="info">
+                <form action="{{ url_for('update_user') }}" method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="Name">Fullname:</label>
+                        <input type="text" name="fname" placeholder="Full Name" value="{{ session['name'] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email: </label>
+                        <input type="email" name="email" placeholder="Email Address" value="{{ session['email'] }}" required>
+                    </div>                    
+                    <div class="form-group">
+                        <label for="Old-Password">Old-Password:</label>
+                        <input type="password" name="old_password" placeholder="Old Password" required>
+                    </div>
+                    <div class="form-group_modal" id="form-group_modal">
+                        <input type="checkbox" id="change_password" name="change_password">
+                        <label for="change_password">Change Password</label>
+                    </div>
+                    <div class="form-group" id="new_password_group" style="display: none; transition: 0.6s ease-in-out;">
+                        <label for="New-Password">New-Password:</label>
+                        <input type="password" name="new_password" placeholder="New Password">
+                    </div>
+                    <div class="operation">
+                        <a href="{{ url_for('index') }}">Cancel</a>
+                        <button type="submit">Submit</button>
+                    </div>
+                    
+                </form>
+                </div>
+                
+        </div>            
+
+        
+
+        <!-- End of Main Content -->
+
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+
+            </div>
+            <!-- End of Nav -->
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2>Research&Development</h2>
+                    <p>MMSU Garlic Research Center and </p>
+                    <p>Food Laboratory</p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    </div>
+    <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
+    <script src="/static/index.js"></script>
+    <script src="{{ url_for('static', filename='orders.js') }}"></script>
+    <script>
+        var hoverEffect = document.getElementById('form-group_modal');
+        var change_pass = document.getElementById('change_password');
+        var newPasswordGroup = document.getElementById('new_password_group');
+        
+        change_pass.addEventListener('change', function(){
+            if (this.checked){
+                newPasswordGroup.style.display = 'flex';
+            }
+            else{
+                newPasswordGroup.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var profileImage = document.getElementById('profileImage');
+            var modal = document.getElementById('myModal');
+            var openBtn = document.getElementById('openModalBtn');
+            var closeBtn = document.getElementById('closeModalBtn');
+            var imageInput = document.getElementById('imageInput');
+    
+            // Open modal
+            openBtn.onclick = function () {
+                modal.style.display = 'block';
+            };
+    
+            // Close modal
+            closeBtn.onclick = function () {
+                modal.style.display = 'none';
+            };
+    
+            // Close modal if the user clicks outside of it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+    
+            // Handle image upload
+            imageInput.addEventListener('change', function (event) {
+                var file = event.target.files[0];
+    
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        // Set the src attribute of the profile image to the uploaded image
+                        profileImage.src = e.target.result;
+                        modal.style.display = 'none'; // Close the modal
+    
+                        // Upload the image file to the server
+                        var formData = new FormData();
+                        formData.append('file', file);
+    
+                        // Send the image file to the server using fetch
+                        fetch('/upload', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            // Handle the response from the server
+                            // If successful, you can update the profile picture's src attribute
+                            if (response.ok) {
+                                profileImage.src = '/static/profilepics/' + file.name;
+                            } else {
+                                console.error('Failed to upload image');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Handle errors if any
+                        });
+                    };
+    
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

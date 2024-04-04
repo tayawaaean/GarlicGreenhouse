@@ -1,0 +1,37 @@
+main .analyse .sales .status .temperature-control {
+    display: flex;
+    align-items: center;
+}
+
+main .analyse .sales .status .temperature-control button {
+    font-size: 18px;
+    padding: 15px;
+    margin: 20px 8px;
+    cursor: pointer;
+    background-color: #12612b ; ;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #12612b ;
+    }
+}
+
+main .analyse .sales .status .temperature-control input {
+    font-size: 26px;
+    padding: 15px;
+    width: 140px;
+    text-align: center;
+    border: 2px solid #12612b ;;
+    border-radius: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+
+    &:focus {
+        outline: none;
+        border-color: #12612b;
+        box-shadow: 0 0 15px rgba(79, 176, 66, 0.5);  
+    }
+}

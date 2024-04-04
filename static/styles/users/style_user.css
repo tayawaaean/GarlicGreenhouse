@@ -1,0 +1,315 @@
+* {
+    margin: 0.5%;
+
+}
+h1{
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+.main {
+    z-index: 0;
+    margin-top: 6.5%;
+    justify-content: flex-start; /* Align to the left side */
+    width: 105%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.2);
+    border-radius: 20px;
+    height: 88vh;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+
+.prof_back {
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    align-items: center;
+}
+
+.container-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+
+}
+
+.prof_back a {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    margin-top: -65px;
+    margin-left: 105px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    transition: 0.5s ease-in-out;
+}
+
+.prof_back a:hover {
+    background-color: gray;
+}
+
+.prof_back a img {
+    width: 50%;
+    height: auto;
+}
+
+.mmsuback {
+    width: 100%;
+    height: 300px;
+    border-radius: 25px;
+}
+.mmsubacks{
+    border-radius: 24px;
+}
+
+.profile_image {
+    height: 150px;
+    width: 150px;
+    margin-top: -105px;
+    border: 3px solid gray;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: white;
+}
+
+.info {
+    margin-top: -20%;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row; /* Adjust for smaller screens */
+    margin: 15px;
+    margin-bottom: 24px;
+    align-items: center;
+}
+.form-group_modal{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+/* Align labels to the left */
+.form-group label {
+    display: flex;
+    margin-right: 10px;
+    text-align: left;
+    min-width: 120px;
+    font-size: 15px;
+    margin-left: 0; /* Reset margin-left for smaller screens */ 
+}
+
+.form-group input {
+    padding: 5px;
+    border-radius: 5px;
+    width: 300px;
+    justify-content: center; 
+    border: 1px solid gray;
+    align-self: flex-end;
+    border-radius: 12px;
+    margin-left: 150px;
+}
+.form-group input:placeholder-shown{
+    text-align: center;
+}
+
+
+
+.operation {
+    margin-right: 10px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row; 
+    justify-content: right; 
+}
+
+.operation a,
+.operation button {
+    margin-bottom: 10px;
+}
+
+.operation a {
+    font-weight: bolder;
+    padding: 12px;
+    width: 25%; /* Adjust as needed */
+    text-align: center;
+    text-decoration: none;
+    border-radius: 18px;
+    transition: 0.5s ease-in-out;
+    background-color: white;
+}
+
+.operation button {
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+    width: 25%; /* Adjust as needed */
+    padding: 12px;
+    border-radius: 18px;
+    transition: 0.5s ease-in-out;
+    border: 1px solid white;
+}
+
+.operation button:hover,
+.operation a:hover {
+    background-color: #D0D4CA;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+.modal-content input[type='file']{
+    margin-top: 5%;
+}
+.close {
+    align-self: flex-end;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image_input_modal{
+    width: 250px;
+    height: 250px;
+}
+
+@media only screen and (max-width: 768px){
+    .modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content{
+        align-items: center;
+        width: 75%;
+        height: 30%;
+        margin-top: 80%;
+        align-content: center;
+        align-items: center;
+    }
+    .form-group_modal{
+        margin-right: 30px;
+    }
+    .select_image{
+        margin-top: 10%;
+    }
+    .image_input_modal{
+        width: 100px;
+        height: 100px;
+    }
+
+    h1{
+        display: flex;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 10%;
+    }
+    .main {
+        z-index: 0;
+        margin-top: 30%;
+        margin-left: 11%;
+        width: 80%;
+        height: 95%;
+    }
+    .container-profile{
+        margin-top: 16%;
+    }
+    .info{
+        margin-top: 0%;
+    }
+    .form-group_checkbox{
+        display: flex;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin: 20px; /* Adjust as needed */
+        margin-top: 2%;
+    }
+
+    .form-group label {
+
+        justify-content: center;
+  
+        display: flex;
+        font-size: 17px;
+    }
+    
+    .form-group input {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        margin-left: -50px;
+    }
+    .operation{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: 50px;
+    }
+    
+    .operation a, .operation button{
+        width: 50%;
+        margin-left: 50px;
+        text-align: center;
+    }
+    .profile_image{
+        width: 100px;
+        height: 100px;
+        margin-top: -80px;
+        margin-bottom: 20px;
+    }
+    .prof_back a{
+        margin-left: 45px;
+        margin-top: -55px;
+        width: 20px;
+        height: 20px;
+    }
+    .profback a img{
+        width: 30px;
+    }
+}

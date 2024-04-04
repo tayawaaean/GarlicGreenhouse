@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/styles/about_us/style_aboutus.css">
+    <title>Research&Development</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+
+            <div class="Logo">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2 style="color: darkgreen;">G0<span class="danger">Nursery</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="index" >
+                    <span class="material-icons-sharp">
+                        monitor
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                <a href="control">
+                    <span class="material-icons-sharp">settings_remote</span>
+                    <h3>Control</h3>
+                </a>   
+
+                <a href="feed">
+                    <span class="material-icons-sharp live-icon">
+                        live_tv
+                    </span>
+                    <h3>Feed</h3>
+                </a>
+
+                <a href="alerts">
+                    <span class="material-symbols-outlined">
+                        notifications
+                        </span>
+                    <h3>Scheduler</h3>
+                    <span class="message-count">1</span>
+                </a>
+
+                <a href="users">
+                    <span class="material-symbols-outlined">
+                        manage_accounts
+                        </span>
+                    <h3>User</h3>
+                </a>
+
+                <a href="about" class="active">
+                    <span class="material-symbols-outlined">
+                        help
+                    </span>
+                    <h3>About Us</h3>
+                </a>
+
+                <a href="main_login" onclick="confirmLogout()">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+
+            </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <div class="txt">
+            <div class = "heading">
+                <h1> Welcome to the Future of Garlic Production!</h1>
+                <p> At Mariano Marcos State University, we are pioneers in the development of IoT-based and controlled environment nurseries tailored specifically for G0 garlic production. With a passion for innovation and sustainable agriculture, we have harnessed the power of modern technology to revolutionize the way garlic is grown.</p>
+             </div>
+             <div class="container-mission">
+                <section class = "about">
+                <div class = "about-image">
+                </div>
+                <div class="about-content">
+                <h2>Our Mission:</h2>
+                <p>Our mission is to empower garlic farmers and enthusiasts with cutting-edge solutions that not only increase yield but also ensure the highest quality garlic production. We aim to make G0 garlic cultivation more efficient, reliable, and environmentally friendly.</p>
+            </div>
+            
+            <div class="who-we-are">
+                <h2>Who We Are:</h2>
+                <p>We are a group of student researchers with a deep commitment to pushing the boundaries of traditional farming methods. Our journey began as a quest for innovative and sustainable solutions in agriculture, and we've merged our academic backgrounds with hands-on experience to bring you a unique approach to garlic farming.</p>
+            </div>
+                <div class="content" id="content"> 
+            <div class="who-we-are">
+                <h2>Our Focus:</h2>
+                <p class ="hidden"><span class = "highlight">Innovation:</span> Our student perspective ensures fresh, cutting-edge ideas to enhance garlic farming.</p>
+                <p class ="hidden"><span class=" highlight">Quality:</span>  We aim for nothing less than the highest quality garlic bulbs. </p>    
+                <p class ="hidden"><span class = "highlight">Simplicity:</span> Our solutions are designed to make garlic farming accessible and straightforward for all.</p>
+            </div>
+            <div class="who-we-are">
+                <h2>Why Us:</h2>
+                <p class="hidden"><span class = "highlight">Student Vision:</span> We offer a fresh take on garlic farming, driven by the curiosity and dedication of student researchers.</p>
+                <p class="hidden"><span class = "highlight">Guidance:</span> Count on us for friendly and accessible support to help you succeed in your garlic farming endeavors.</p>
+                <p class="hidden"><span class = "highlight">Efficiency:</span> We streamline the farming process, allowing you to make the most of your resources.</p>
+                <p class="hidden"><span class = "highlight">Sustainability:</span> We are committed to sustainable farming practices to reduce your ecological footprint.</p>
+                <p class="hidden"><span class = "highlight">Quality Output:</span> Our technology promises exceptional garlic and improved yield.</p>  
+                </div>
+            </div>
+        </div>
+                <a href = "#" class="read-more">Read More</a>
+            </div>
+                </section>
+        </div>
+
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+
+            </div>
+            <!-- End of Nav -->
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2>Research&Development</h2>
+                    <p>MMSU Garlic Research Center and </p>
+                    <p>Food Laboratory</p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="{{ url_for('static', filename='javascripts/dashboard/logout.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/dashboard/orders.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/dashboard/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/about_us/aboutusjs.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
+    <script src="../static/index.js"></script>
+    <script src="../static/javascripts/about_us/aboutusjs.js"></script>
+</body>
+</html>

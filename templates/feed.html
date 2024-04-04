@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/styles/feed/web.css">
+    <link rel="stylesheet" href="../static/styles/feed/style.css">
+    <title>CONTROLLED NURSERY</title>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <!-- Sidebar Section -->
+            <aside>
+    
+                <div class="Logo">
+                    <div class="logo">
+                        <img src="../static/images/LOGO-MMSU.webp">
+                        <h2 style="color: darkgreen;">G0<span class="danger">Nursery</span></h2>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="sidebar">
+                    <a href="index">
+                        <span class="material-icons-sharp">
+                            monitor
+                        </span>
+                        <h3>Dashboard</h3>
+                    </a>
+
+                    <a href="control">
+                        <span class="material-icons-sharp">settings_remote</span>
+                        <h3>Control</h3>
+                    </a>   
+
+                    <a href="feed" class="active">
+                        <span class="material-icons-sharp live-icon">
+                            live_tv
+                        </span>
+                        <h3>Feed</h3>
+                    </a>                    
+    
+                    <a href="alerts">
+                        <span class="material-symbols-outlined">
+                            notifications
+                            </span>
+                        <h3>Scheduler</h3>
+                        <span class="message-count">1</span>
+                    </a>
+    
+                    <a href="users">
+                        <span class="material-symbols-outlined">
+                            manage_accounts
+                            </span>
+                        <h3>User</h3>
+                    </a>
+    
+                    <a href="about">
+                        <span class="material-symbols-outlined">
+                            help
+                        </span>
+                        <h3>About Us</h3>
+                    </a>                  
+
+                    <a href="main_login" onclick="confirmLogout()">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </a>
+                </div>
+            </aside>
+            <!-- End of Sidebar Section -->
+    
+            <!-- DASHBOARD -->
+            <main class="sidebar">
+                <div class="feed">
+                    <h2>LIVE FEED</h2>
+                </div>
+
+                <div id="container">
+                <div style="transform: scaleY(-1);">
+                    <img src="{{ url_for('video_feed') }}" id="video-feed">
+                </div>
+                <!-- Real-time clock -->
+                <div id="clock"></div>
+            </div>           
+            </main>
+            
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="nav">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">
+                            menu
+                        </span>
+                    </button>
+    
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>Reza</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../static/images/profile-1.jpg">
+                        </div>
+                    </div>
+    
+                </div>
+                <!-- End of Nav -->
+    
+                <div class="user-profile">
+                    <div class="logo">
+                        <img src="../static/images/LOGO-MMSU.webp">
+                        <h2>Research&Development</h2>
+                        <p>MMSU Garlic Research Center and </p>
+                        <p>Food Laboratory</p>
+                    </div>
+                </div>
+            </div>
+    </body>
+   <script src="../static/javascripts/feed/web.js"></script>
+   <script src="../static/javascripts/feed/time.js"></script>
+   <script src="../static/javascripts/feed/history.js"></script>
+   <script src="../static/index.js"></script>
+
+</html>

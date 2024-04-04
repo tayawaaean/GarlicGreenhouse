@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+</head>
+<body>
+
+    <div>
+        <button onclick="confirmLogout()">Logout</button>
+
+        <script>
+            function confirmLogout() {
+                // Use the built-in confirm function to show a confirmation dialog
+                var confirmLogout = confirm("Are you sure you want to log out?");
+                
+                // If the user confirms, trigger the logout function
+                if (confirmLogout) {
+                    logout();
+                }
+            }
+
+            function logout() {
+                // Make an AJAX request to the Flask endpoint to clear the session
+                $.ajax({
+                    url: '/logout',
+                    type: 'GET',
+                    success: function (response) {
+                        // Redirect to the main login page after successful logout
+                        window.location.href = "/main_login";
+                    },
+                    error: function (error) {
+                        console.error('Error during logout:', error);
+                    }
+                });
+            }
+        </script>
+        <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
+    </div>
+
+</body>
+</html>

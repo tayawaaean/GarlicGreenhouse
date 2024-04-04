@@ -1,0 +1,601 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: white;
+}
+
+button {
+  background-color: #12612b;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+
+.modal-container {
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  opacity: 0;
+  padding: 300px 10px;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.modal-container.show{
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.modal{
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 80px 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 90%; 
+  max-width: 800px; 
+  text-align: center;
+}
+
+
+.modal h1 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 40px;
+  font-weight: 700;
+  color: green;
+  line-height: 1.2;
+  margin-bottom: 0px;
+  margin-top: 75px;
+}
+
+.modal p {
+  font-size: 20px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+
+.modal .divider {
+  width: 100%;
+  height: 3px;
+  background-color: #12612b;
+  margin: 10px 0;
+}
+
+#btn-box {
+  background-color: #12612b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 10px 25px;
+  text-decoration: none;
+}
+
+#btn-box:hover {
+  background-color: #12612b;
+}
+
+#btn-box a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.modal-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 60.4%;
+  height: 30%;
+ background: url('../images/D11.png') no-repeat;
+  background-size: 65%;
+}
+
+.modal-container::before {
+  content: '';
+  position: absolute;
+  top: 23%;
+  right: -48%;
+  width: 100%;
+  height: 100%;
+  background: url('../images/D11.png') no-repeat;
+  background-size: 5%;
+}
+
+.modal-container::after,
+.modal-container::before {
+  pointer-events: none;
+}
+
+@media (min-width:38px) and (max-width: 413px) {
+
+  .modal-container::after {
+    top: 65%;
+    left: 2%;
+    width: 100%;
+    height: 100%;
+    background-size: 94%;
+  }
+  
+  .modal-container::before {
+    top: 26%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 15%;
+  }
+
+  
+.modal{
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 90%; 
+  max-width: 800px; 
+  text-align: center;
+}
+
+
+.modal h1 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 25px;
+  font-weight: 700;
+  color: green;
+  line-height: 1.2;
+  margin-bottom: 0px;
+  margin-top: 75px;
+}
+
+.modal p {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+
+.modal .divider {
+  width: 100%;
+  height: 3px;
+  background-color: #12612b;
+  margin: 10px 0;
+}
+
+#btn-box {
+  background-color: #12612b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+
+#btn-box:hover {
+  background-color: #12612b;
+}
+
+#btn-box a {
+  color: inherit;
+  text-decoration: none;
+}
+}
+
+@media (min-width:414px) and (max-width: 450px) {
+  .modal-container {
+    padding: 1px 2px;
+  }
+
+  .modal-container::after {
+    top: 61%;
+    left: 2%;
+    width: 100%;
+    height: 100%;
+    background-size: 94%;
+  }
+  
+  .modal-container::before {
+    top: 24.5%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 15%;
+  }
+
+  
+.modal{
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 90%; 
+  max-width: 800px; 
+  text-align: center;
+}
+
+
+.modal h1 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 30px;
+  font-weight: 700;
+  color: green;
+  line-height: 1.2;
+  margin-bottom: 0px;
+  margin-top: 75px;
+}
+
+.modal p {
+  font-size: 20px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+
+.modal .divider {
+  width: 100%;
+  height: 3px;
+  background-color: #12612b;
+  margin: 10px 0;
+}
+
+#btn-box {
+  background-color: #12612b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+
+#btn-box:hover {
+  background-color: #12612b;
+}
+
+#btn-box a {
+  color: inherit;
+  text-decoration: none;
+}
+}
+
+@media (min-width:414px) and (max-width: 450px) {
+  .modal-container {
+    padding: 1px 2px;
+  }
+
+  .modal-container::after {
+    top: 61%;
+    left: 2%;
+    width: 100%;
+    height: 100%;
+    background-size: 94%;
+  }
+  
+  .modal-container::before {
+    top: 28%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 15%;
+  }
+
+  
+.modal{
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 90%; 
+  max-width: 800px; 
+  text-align: center;
+}
+
+
+.modal h1 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 25px;
+  font-weight: 700;
+  color: green;
+  line-height: 1.2;
+  margin-bottom: 0px;
+  margin-top: 75px;
+}
+
+.modal p {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+
+.modal .divider {
+  width: 100%;
+  height: 3px;
+  background-color: #12612b;
+  margin: 10px 0;
+}
+
+#btn-box {
+  background-color: #12612b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+
+#btn-box:hover {
+  background-color: #12612b;
+}
+
+#btn-box a {
+  color: inherit;
+  text-decoration: none;
+}
+}
+
+@media (min-width:451px) and (max-width: 550px) {
+  .modal-container {
+    padding: 1px 2px;
+  }
+
+  .modal-container::after {
+    top: 61%;
+    left: 2%;
+    width: 100%;
+    height: 100%;
+    background-size: 94%;
+  }
+  
+  .modal-container::before {
+    top: 27%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 13%;
+  }
+
+  
+.modal{
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 90%; 
+  max-width: 800px; 
+  text-align: center;
+}
+
+
+.modal h1 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 25px;
+  font-weight: 700;
+  color: green;
+  line-height: 1.2;
+  margin-bottom: 0px;
+  margin-top: 75px;
+}
+
+.modal p {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+
+.modal .divider {
+  width: 100%;
+  height: 3px;
+  background-color: #12612b;
+  margin: 10px 0;
+}
+
+#btn-box {
+  background-color: #12612b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+
+#btn-box:hover {
+  background-color: #12612b;
+}
+
+#btn-box a {
+  color: inherit;
+  text-decoration: none;
+}
+}
+
+
+@media (min-width:940px) and (max-width: 961px){
+  .modal-container{
+    padding: 30px 90px;
+  }
+
+  .modal-container::after {
+    top: 55.2%;
+    left: 11%;
+    width: 100%;
+    height: 100%;
+    background-size: 76.5%;
+  }
+  
+  .modal-container::before {
+    top: 19%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 9%;
+  }
+}
+
+@media (min-width:962px) and (max-width: 1099px){
+  .modal-container{
+    padding: 30px 90px;
+  }
+
+  .modal-container::after {
+    top: 53%;
+    left: 10.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 77.5%;
+  }
+  
+  .modal-container::before {
+    top: 19%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 9%;
+  }
+}
+
+@media (min-width:1100px) and (max-width: 1132px){
+  .modal-container{
+    padding: 70px 150px;
+  }
+
+  .modal-container::after {
+    top: 54%;
+    left: 15%;
+    width: 100%;
+    height: 100%;
+    background-size: 68.5%;
+  }
+  
+  .modal-container::before {
+    top: 17.5%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 9%;
+  }
+}
+
+@media (min-width:1133px) and (max-width: 1160px){
+
+  .modal-container{
+    padding: 70px 150px;
+  }
+
+  .modal-container::after {
+    top: 51%;
+    left: 14.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 69.7%;
+  }
+  
+  .modal-container::before {
+    top: 20%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 8%;
+  }
+}
+
+@media (min-width:1161px) and (max-width: 1171px){
+  .modal-container{
+    padding: 70px 150px;
+  }
+
+  .modal-container::after {
+    top: 50.2%;
+    left: 14.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 69.7%;
+  }
+  
+  .modal-container::before {
+    top: 20%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 8%;
+  }
+}
+
+@media (min-width:1172px) and (max-width: 1200px){
+  .modal-container{
+    padding: 280px 250px;
+  }
+
+  .modal-container::after {
+    top: 62%;
+    left: 22.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 54%;
+  }
+  
+  .modal-container::before {
+    top: 17%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 8%;
+  }
+}
+
+@media (min-width:1591px) and (max-width: 1700px){
+  .modal-container{
+    padding: 300px 250px;
+  }
+
+  .modal-container::after {
+    top: 49.4%;
+    left: 23.2%;
+    width: 100%;
+    height: 100%;
+    background-size: 52.5%;
+  }
+  
+  .modal-container::before {
+    top: 19%;
+    right: -46.5%;
+    width: 100%;
+    height: 100%;
+    background-size: 6%;
+  }
+}
+
+

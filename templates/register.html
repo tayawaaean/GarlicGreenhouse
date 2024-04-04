@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Sign Up</title>
+
+	<link rel="stylesheet" href="../static/style2.css">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+</head>
+<body>
+	<div class="sliding-container">
+		<form action="main_login">
+			<img class="logo" src="../static/images/LOGO-MMSU_2.webp" alt="MMSU Logo">
+			<div class="form-container">
+				<header> Already a member? </header>
+				<header2>To keep connected with us please login with your personal info </header2>
+				<div class="input-field button">
+					<input type="submit" value="Sign In" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="container">
+		<header> Create Account </header>
+		<form action="register" method="post" id="registrationForm" onsubmit="return validateForm()">
+			<div class="field code-field">
+				<div class="input-field">
+					<input type="text" placeholder="Enter Your Invite Code" class="inv_code" name="inv_code" />
+				</div>
+				<span class="error inv-code-error">
+					<i class="bx bx-error-circle error-icon"></i>
+					<p class="error-text">Valid Invite Code</p>
+				</span>
+			</div>
+
+			<div class="field text-field">
+				<div class="input-field">
+					<input type="text" placeholder="Enter Your Name" class="name" name="name" />
+				</div>
+				<span class="error name-error">
+					<i class="bx bx-error-circle error-icon"> </i>
+					<p class="error-text">Name is required</p>
+				</span>
+			</div>
+
+			<div class="field email-field">
+				<div class="input-field">
+					<input type="email" placeholder="Enter Your Email" class="email" name="email" />
+				</div>
+				<span class="error email-error">
+					<i class="bx bx-error-circle error-icon"> </i>
+					<p class="error-text">Please enter a valid email</p>
+				</span>
+			</div>
+
+			<div class="field create-password">
+				<div class="input-field">
+					<input type="password" placeholder="Create password" class="password" name="password" />
+					<i class="bx bx-hide show-hide"></i>
+				</div>
+				<span class="error password-error">
+					<i class="bx bx-error-circle error-icon"> </i>
+					<p class="error-text">Please enter 8 characters with a number, symbol, small and capital letter.</p>
+				</span>
+			</div>
+
+			<div class="field confirm-password">
+				<div class="input-field">
+					<input type="password" placeholder="Confirm password" class="cPassword" name="cPassword" />
+					<i class="bx bx-hide show-hide"></i>
+				</div>
+				<span class="error cpassword-error">
+					<i class="bx bx-error-circle error-icon"> </i>
+					<p class="error-text">Password don't match</p>
+				</span>
+			</div>
+
+			<div class="input-field button">
+				<input type="submit" value="Submit Now" />
+			</div>
+		</form>
+
+			<div class="social-icons">
+				<a href="#"><i class='bx bxl-facebook'></i></a>
+				<a href="#"><i class='bx bxl-google'></i></a>
+				<a href="#"><i class='bx bxl-linkedin-square'></i></a>
+			</div>
+			<header> 
+				<div class="social-header">Or connect with </div>
+			</header>
+	</div>
+
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+	<script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
+</body>
+</html>

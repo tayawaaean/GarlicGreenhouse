@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login/login.css') }}">
+    <title>Login Form</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Welcome!</h2>
+        <form id="loginForm">
+            <img class="logo" src="../static/images/LOGO-MMSU_2.webp" alt="MMSU Logo">
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span>
+            </div>
+
+            <button type="button" onclick="login()">Login</button>
+
+            <div class="forgot-password">
+                <a href="forgot_password" class="forgot-password">Forgot password?</a>
+            </div>
+            <p id="error-message"></p>
+        </form>
+        <div class="horizontal-line"></div>
+
+        <div class="signup-link">
+            <p>Don't have an account? <a href="register" class="btn">Sign Up</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='javascripts/login/login.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/login/verifier.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
+</body>
+
+</html>

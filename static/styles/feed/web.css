@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #00aa00;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.font p {
+    margin-top: 20px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #006600;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#container {
+    position: relative;
+    top: 0px;
+    width: 1300px;
+    height: 850px;
+    margin: 0 auto;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+#container.minimized {
+    transform: translateX(-100%);
+}
+
+#videoElement {
+    overflow: hidden;
+    width: 100%;
+    top: 60%;
+    max-width: 1000px;
+    transform: scaleX(-1);
+    border: 5px solid #006600;
+    border-radius: 20px;
+    transform: scaleX(-1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.reminders {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#clock {
+    position: absolute;
+    top: 30px;
+    right: 200px;
+    color: white;
+    font-size: 25px;
+    z-index: 1;
+}
+
+.video-container {
+    position: relative;
+    max-height: auto;
+    padding: 160px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-right: 30%;
+}
+
+.video-container .search-container {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.video-container .search-container input[type="text"] {
+    padding: 8px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.video-container .search-container button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #006600;
+    color: #fff;
+    cursor: pointer;
+}
+
+.history {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-height: 300px;
+    padding: 8px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width:414px){
+    #container {
+        position: relative;
+        top: 0px;
+        width: 500px;
+        height: 500px;
+        margin: 0 auto;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        margin-left: -200px;
+    }
+    .sidebar .feed{
+        margin-left: -180px;
+    }
+}

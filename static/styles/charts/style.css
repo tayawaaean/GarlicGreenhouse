@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+main{
+    margin-top: 1.4rem;
+}
+
+main .analyse{
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+}
+
+
+main .analyse > div {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(144, 238, 144, 0.143);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 650px; 
+    height: 400px; 
+}
+
+main .chart{
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+}
+main .chart h2{
+    margin-top: 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    color: #12612b;
+}
+
+main .analyse > div:hover{
+    box-shadow: none;
+}
+
+main .analyse > div .status{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .analyse .two{
+    margin-top: 10px;
+}
+
+main .analyse .sales .status {
+    align-items: right;
+    margin-top: -10px;
+    padding: 23px; 
+    border-radius: 15px; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+main .analyse .visits .status {
+    align-items: right;
+    margin-top: -10px;
+    padding: 0px; 
+    padding-bottom: 15px;
+    border-radius: 15px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+main .analyse .one .status {
+    align-items: right;
+    margin-top: -10px;
+    padding: 0px; 
+    padding-bottom: 30px;
+    border-radius: 15px; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+main .analyse .two .status {
+    align-items: right;
+    margin-top: -10px;
+    padding: 0px; 
+    padding-bottom: 15px;
+    border-radius: 15px; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+main .analyse .three  {
+    align-items: right;
+    margin-top: -10px;
+    padding: 0px; 
+    padding-bottom: 15px;
+    border-radius: 15px; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+main .analyse .four .status .toggle-container label input{
+    appearance: none;
+}
+
+main .analyse .four .status .toggle-container label span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    height: 75px;
+    background:#333;
+    border: 6px solid #555555;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main .analyse .four .status .toggle-container label input:checked ~span{
+    left: 60px;
+}
+
+main .analyse .four .status .toggle-container label span ion-icon{
+    color: rgba(255,255,255,0.25);
+    font-size: 2rem;
+    transition: 0.5s;
+}
+
+main .analyse .four .status .toggle-container label input:checked ~ span ion-icon {
+    color: rgba(255, 255, 255, 1);
+    filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #fff) drop-shadow(0 0 15px #fff);
+}
+
+main .new-users .user-list {
+    background-color: rgba(144, 238, 144, 0.5);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+  cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+main .new-users .user-list:hover{
+    box-shadow: none;
+}
+
+main .new-users .user-list .user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main .new-users .user-list .user img{
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.4rem;
+    border-radius: 50%;
+}
+
+main .recent-orders{
+    margin-top: 1.3rem;
+}
+
+main .recent-orders h2{
+    margin-bottom: 0.8rem;
+}
+
+main .recent-orders table{
+    background-color: var(--color-white);
+    width: 100%;
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--card-border-radius);
+    transition: all 0.3s ease;
+}
+
+main .recent-orders table:hover{
+    box-shadow: none;
+}
+
+main table tbody td{
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child td{
+    border: none;
+}
+
+main .recent-orders a{
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+    color: var(--color-primary);
+}
+
+@media (max-width: 700px) {
+    main .analyse {
+        margin-top: 5px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+        margin-right: 20px;
+    }
+}
