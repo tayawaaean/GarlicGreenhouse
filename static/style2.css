@@ -34,24 +34,21 @@ body::before {
 
 .container {
   position: relative;
+  left:-28%;
   max-width: 450px;
   padding: 50px;
   border-radius: 8px;
   background: linear-gradient(135deg, rgba(29, 154, 133, 0.6), rgba(30, 95, 92, 0.6));
   border: 2px solid #ffffff;
   text-align: center;
-  margin: 0 auto; /* Center the container */
+  margin-left: -70px; 
 }
 
 @media screen and (max-width: 768px) {
   .container {
-    padding: 35px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, rgba(29, 154, 133, 0.6), rgba(30, 95, 92, 0.6));
-    border: 2px solid #ffffff;
-    text-align: center;
-    margin: 0 auto; /* Center the container */
-    max-width: 80%; /* Adjust width for smaller screens */
+    left: 0;
+    margin-left: 0;
+    width: 80%;
   }
 }
 
