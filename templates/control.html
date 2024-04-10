@@ -234,28 +234,6 @@
                     </span>
                 </div>
 
-                <div class="activeAlarms">
-                    {% for entry in schedule_list %}
-                        <div class="notification">
-                            <div class="content">
-                                <div class="info">
-                                    <h3 class='alarmhead'>{{ entry.monthYearSelected }}</h3>
-                                    <p>
-                                        Time: {{ entry.time_start }}-{{ entry.time_end }}
-                                    </p>
-                                    <small class="text_muted">
-                                        Grow Lights: {{ entry.grow_light_status }} | Temperature: {{ entry.temperature }} °C | Rack Number: {{ entry.rack }}
-                                    </small>
-                                </div>
-                                <span class="Dbutton">
-                                    <button class="deleteButton" data-id="{{ entry._id }}">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
 
             </div>
 

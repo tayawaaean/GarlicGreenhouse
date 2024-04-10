@@ -60,18 +60,19 @@ body {
     border: 2px solid #ffffff;
   }
   
-  .password-toggle {
+  .form-group i{
     position: absolute;
-    right: 7px;
-    top: 70%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #000; /* Set color to black */
+    font-size: 20px;
+    color: grey;
+    margin: 15px 0 0 -35px;
   }
-  
-  .password-toggle.crossed {
-    text-decoration: line-through; /* Add a line-through when the eye is crossed out */
+
+  i .fa-lock{
+    margin-top: 35px;
   }
+
+
+
   
   button {
     background-color: #1D9A85ff;
@@ -96,19 +97,28 @@ body {
   }
   
   
-  .forgot-password,
-  .signup-link {
-    color: #000000;
+  .forgot-password {
+    color: #ffffff;
     text-align: center;
     margin-top: 10px;
-  }
+    text-decoration: none;
+    font-weight: bold;
+}
 
-  .signup-link {
-    color: rgb(0, 0, 0);
-  
+.signup-link {
+    color: #ffffff;
+    text-align: center;
     margin-top: 10px;
-  }
+    text-decoration: none;
+}
 
+.signup-link a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+  
   a.btn{
     color:white;
     
@@ -127,6 +137,7 @@ body {
    color:#fff;
    font-size: 30px;
    margin-top: 0;
+   text-align: center;
   }
 
 
@@ -135,4 +146,22 @@ body {
 
    }
 
-  
+   .icon {
+    position: absolute;
+    right: 15px;
+    top: 67%;
+    transform: translateY(-50%);
+    color: #666; 
+    pointer-events: none;
+    font-size: 1.5em;
+}
+
+  .password-toggle{
+    position: absolute;
+    right: 15px;
+    top: 64%;
+    transform: translateY(-50%);
+    color: #666; 
+    pointer-events: none;
+    font-size: 1.2em;
+  }

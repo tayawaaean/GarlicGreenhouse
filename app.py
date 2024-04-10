@@ -245,8 +245,6 @@ def publish_sensor_data():
             "lumens4": sensor_data["lumens4"]
         })
 
-
-
 @app.route('/publish-mqtt', methods=['GET'])
 def publish_mqtt():
     topic = request.args.get('topic')
@@ -257,37 +255,17 @@ def publish_mqtt():
 
     return jsonify({'success': True, 'topic': topic, 'message': message})
 
-@app.route('/get_sensor_data_temperature', methods=['GET'])
-def get_sensor_data_temperature():
-    start_date = request.args.get('start_date')
-
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
-
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
-
-    # Query MongoDB to get temperature data within the date range
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
-    })
-
-    temperature_data = []
-    for item in data:
-        temperature_data.append({'temperature': item['temperature'], 'time': item['time']})
-
-    return jsonify({'temperature_data': temperature_data})
-
 @app.route('/get_realtime_temperature_data', methods=['GET'])
 def get_realtime_temperature_data():
     start_date = request.args.get('start_date')
     start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
+    # Get the end of the selected date
+    end_datetime = start_datetime + timedelta(days=1)
 
-    # Query MongoDB to get temperature data within the date range
+    # Query MongoDB to get temperature data for the selected date
     data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
+        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
     })
 
     temperature_data = []
@@ -295,39 +273,18 @@ def get_realtime_temperature_data():
         temperature_data.append({'temperature': item['temperature'], 'time': item['time']})
 
     return jsonify({'temperature_data': temperature_data})
-
-
-@app.route('/get_sensor_data_humidity', methods=['GET'])
-def get_sensor_data_humidity():
-    start_date = request.args.get('start_date')
-
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
-
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
-
-    # Query MongoDB to get humidity data within the date range
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
-    })
-
-    humidity_data = []
-    for item in data:
-        humidity_data.append({'humidity': item['humidity'], 'time': item['time']})
-
-    return jsonify({'humidity_data': humidity_data})
 
 @app.route('/get_realtime_humidity_data', methods=['GET'])
 def get_realtime_humidity_data():
     start_date = request.args.get('start_date')
     start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
+    # Get the end of the selected date
+    end_datetime = start_datetime + timedelta(days=1)
 
-    # Query MongoDB to get humidity data within the date range
+    # Query MongoDB to get humidity data for the selected date
     data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
+        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
     })
 
     humidity_data = []
@@ -337,37 +294,17 @@ def get_realtime_humidity_data():
     return jsonify({'humidity_data': humidity_data})
 
 
-@app.route('/get_sensor_data_lumens1', methods=['GET'])
-def get_sensor_data_lumens1():
-    start_date = request.args.get('start_date')
-
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
-
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
-
-    # Query MongoDB to get lumens1 data within the date range
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
-    })
-
-    lumens1_data = []
-    for item in data:
-        lumens1_data.append({'lumens1': item['lumens1'], 'time': item['time']})
-
-    return jsonify({'lumens1_data': lumens1_data})
-
 @app.route('/get_realtime_lumens1_data', methods=['GET'])
 def get_realtime_lumens1_data():
     start_date = request.args.get('start_date')
     start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
+    # Get the end of the selected date
+    end_datetime = start_datetime + timedelta(days=1)
 
-    # Query MongoDB to get lumens1 data within the date range
+    # Query MongoDB to get lumens1 data for the selected date
     data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
+        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
     })
 
     lumens1_data = []
@@ -375,38 +312,18 @@ def get_realtime_lumens1_data():
         lumens1_data.append({'lumens1': item['lumens1'], 'time': item['time']})
 
     return jsonify({'lumens1_data': lumens1_data})
-
-@app.route('/get_sensor_data_lumens2', methods=['GET'])
-def get_sensor_data_lumens2():
-    start_date = request.args.get('start_date')
-
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
-
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
-
-    # Query MongoDB to get lumens2 data within the date range
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
-    })
-
-    lumens2_data = []
-    for item in data:
-        lumens2_data.append({'lumens2': item['lumens2'], 'time': item['time']})
-
-    return jsonify({'lumens2_data': lumens2_data})
 
 @app.route('/get_realtime_lumens2_data', methods=['GET'])
 def get_realtime_lumens2_data():
     start_date = request.args.get('start_date')
     start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
+    # Get the end of the selected date
+    end_datetime = start_datetime + timedelta(days=1)
 
-    # Query MongoDB to get lumens2 data within the date range
+    # Query MongoDB to get lumens2 data for the selected date
     data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
+        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
     })
 
     lumens2_data = []
@@ -415,38 +332,17 @@ def get_realtime_lumens2_data():
 
     return jsonify({'lumens2_data': lumens2_data})
 
-
-@app.route('/get_sensor_data_lumens3', methods=['GET'])
-def get_sensor_data_lumens3():
-    start_date = request.args.get('start_date')
-
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
-
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
-
-    # Query MongoDB to get lumens3 data within the date range
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
-    })
-
-    lumens3_data = []
-    for item in data:
-        lumens3_data.append({'lumens3': item['lumens3'], 'time': item['time']})
-
-    return jsonify({'lumens3_data': lumens3_data})
-
 @app.route('/get_realtime_lumens3_data', methods=['GET'])
 def get_realtime_lumens3_data():
     start_date = request.args.get('start_date')
     start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
+    # Get the end of the selected date
+    end_datetime = start_datetime + timedelta(days=1)
 
-    # Query MongoDB to get lumens3 data within the date range
+    # Query MongoDB to get lumens3 data for the selected date
     data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
+        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
     })
 
     lumens3_data = []
@@ -454,38 +350,18 @@ def get_realtime_lumens3_data():
         lumens3_data.append({'lumens3': item['lumens3'], 'time': item['time']})
 
     return jsonify({'lumens3_data': lumens3_data})
-
-@app.route('/get_sensor_data_lumens4', methods=['GET'])
-def get_sensor_data_lumens4():
-    start_date = request.args.get('start_date')
-
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
-
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
-
-    # Query MongoDB to get lumens4 data within the date range
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
-    })
-
-    lumens4_data = []
-    for item in data:
-        lumens4_data.append({'lumens4': item['lumens4'], 'time': item['time']})
-
-    return jsonify({'lumens4_data': lumens4_data})
 
 @app.route('/get_realtime_lumens4_data', methods=['GET'])
 def get_realtime_lumens4_data():
     start_date = request.args.get('start_date')
     start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # If only start date is provided, set end date to the same date to get data for the entire day
-    end_datetime = start_datetime.replace(hour=23, minute=59, second=59)
+    # Get the end of the selected date
+    end_datetime = start_datetime + timedelta(days=1)
 
-    # Query MongoDB to get lumens4 data within the date range
+    # Query MongoDB to get lumens4 data for the selected date
     data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lte': end_datetime.strftime('%Y-%m-%d')}
+        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
     })
 
     lumens4_data = []
@@ -594,89 +470,6 @@ def save_alarm():
     schedule_collection.insert_one(alarm_doc)
 
     return jsonify({'message': 'Alarm data saved successfully'})
-
-def send_http_request(url):
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            print(f"HTTP request sent successfully to {url}")
-        else:
-            print(f"Failed to send HTTP request to {url}. Status code: {response.status_code}")
-    except Exception as e:
-        print(f"An error occurred while sending HTTP request to {url}: {e}")
-
-def process_schedule(schedule):
-    start_date = datetime.strptime(schedule['start_date'], '%d %B %Y')
-    end_date = datetime.strptime(schedule['end_date'], '%d %B %Y')
-    time_on_start = datetime.strptime(schedule['time_on_start'], '%H:%M')
-    time_off_start = datetime.strptime(schedule['time_off_start'], '%H:%M')
-    time_on_end = datetime.strptime(schedule['time_on_end'], '%H:%M')
-    time_off_end = datetime.strptime(schedule['time_off_end'], '%H:%M')
-    password = schedule['password']
-
-    print(f"Processing schedule for start date: {start_date.date()}")
-
-    while start_date <= end_date:
-        current_time = datetime.now()
-        print("Current date and time:", current_time)
-
-        # Calculate the next time for turning on and turning off
-        next_time_on = datetime.combine(current_time.date(), time_on_start.time())
-        next_time_off = datetime.combine(current_time.date(), time_off_start.time())
-
-        if current_time > next_time_on and current_time < next_time_off:
-            next_time_on += timedelta(days=1)
-        elif current_time > next_time_off:
-            next_time_on += timedelta(days=1)
-            next_time_off += timedelta(days=1)
-
-        print("Next time to turn on:", next_time_on)
-        print("Next time to turn off:", next_time_off)
-
-        # Check if the current date matches the start date of the schedule
-        if current_time.date() == start_date.date():
-            # Check if the current time is within the time range for turning on
-            if time_on_start.time() <= current_time.time() <= time_on_end.time():
-                # Send HTTP request to turn on
-                for url in ["http://10.40.1.21:80/turn_on/1", "http://10.40.0.176:80/turn_on/3",
-                            "http://10.40.1.21:80/turn_on/2", "http://10.40.0.176:80/turn_on/4"]:
-                    send_http_request(url)
-                # Update all relay numbers to true
-                light_state_collection.update_many(
-                    {},
-                    {'$set': {'state': True}}
-                )
-            # Check if the current time is within the time range for turning off
-            elif time_off_start.time() <= current_time.time() <= time_off_end.time():
-                # Send HTTP request to turn off
-                for url in ["http://10.40.1.21:80/turn_off/1", "http://10.40.0.176:80/turn_off/3",
-                            "http://10.40.1.21:80/turn_off/2", "http://10.40.0.176:80/turn_off/4"]:
-                    send_http_request(url)
-                # Update all relay numbers to false
-                light_state_collection.update_many(
-                    {},
-                    {'$set': {'state': False}}
-                )
-            else:
-                print("Current time is not within the scheduled time range for turning on or off.")
-        else:
-            print("Current date is not within the scheduled start date.")
-
-        # Update the current date
-        start_date += timedelta(days=1)
-        # Sleep for 10 seconds before checking again
-        time.sleep(5)
-        print("Waiting for the next schedule check...")
-
-def schedule_thread():
-    while True:
-        schedules = schedule_collection.find({})
-        for schedule in schedules:
-            print("Processing schedule:", schedule["_id"])
-            process_schedule(schedule)
-
-# Start the schedule thread
-threading.Thread(target=schedule_thread, daemon=True).start()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -1193,7 +986,6 @@ def latest_controlled_by():
 
     # Return the controlled_by information as JSON
     return jsonify(controlled_by_dict)
-
 
 @app.route('/latest_ac_control')
 def latest_ac_control():

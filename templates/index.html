@@ -21,20 +21,17 @@
 </head>
 
 <body>
-
     <section class="modal-container" id="modal_container">
         <div class="modal">
-
-          <h1>Welcome to Our Smart Garlic Germination Endeavor!</h1>
-
-          <div class="divider"></div>
-
-          <p>Join us in exploring the innovative world of IoT-bsed solutions for optimizing garlic germination in a controlled environment. </p>
-
-          <button id="btn-box">Next</button>
-
+            <img src="/static/images/D9.png" class="img1">
+            <h1>Welcome to Our Smart Garlic Germination Endeavor!</h1>
+            <div class="divider"></div>
+            <p>Join us in exploring the innovative world of IoT-based solutions for optimizing garlic germination in a controlled environment. </p>
+            <button id="btn-box">Next</button>
+            <img src="/static/images/D11.png" class="img2">
         </div>
     </section>
+    
 
     <div class="container">
         <!-- Sidebar Section -->
@@ -273,7 +270,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-   
+    <script>
+        // Get today's date in the format YYYY-MM-DD
+        var today = new Date().toISOString().split('T')[0];
+    
+        // Set values for all date input fields
+        document.getElementById('start-date-selector').value = today;
+        document.getElementById('humidity-start-date-selector').value = today;
+        document.getElementById('lumens1-start-date-selector').value = today;
+        document.getElementById('lumens2-start-date-selector').value = today;
+        document.getElementById('lumens3-start-date-selector').value = today;
+        document.getElementById('lumens4-start-date-selector').value = today;
+    </script>
+    
     <script>
         var ctx = document.getElementById('humidity-chart').getContext('2d');
         var humidityChart = new Chart(ctx, {
@@ -321,6 +330,13 @@
     
         var startDateSelector = flatpickr('#humidity-start-date-selector');
     
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeHumidityData(new Date(today));
+    
         startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
             var selectedDate = new Date(selectedDates[0]);
             var today = new Date();
@@ -330,6 +346,7 @@
                 // Fetch humidity data in real-time
                 fetchRealtimeHumidityData(selectedDate);
             } else {
+                // Fetch humidity data for the selected date
                 fetchHumidityData(selectedDate);
             }
         });
@@ -337,7 +354,8 @@
         function fetchHumidityData(selectedDate) {
             var startDate = selectedDate.toISOString().split('T')[0];
     
-            fetch('/get_sensor_data_humidity?start_date=' + startDate)
+            // Fetch humidity data for the selected date
+            fetch('/get_realtime_humidity_data?start_date=' + startDate)
                 .then(response => response.json())
                 .then(data => {
                     // Clear previous data
@@ -355,7 +373,7 @@
         }
     
         function fetchRealtimeHumidityData(selectedDate) {
-            // Fetch entire humidity data for the selected date
+            // Fetch real-time humidity data for the selected date
             fetch('/get_realtime_humidity_data?start_date=' + selectedDate.toISOString().split('T')[0])
                 .then(response => response.json())
                 .then(data => {
@@ -372,7 +390,7 @@
                     humidityChart.update();
                 });
         }
-    </script>
+    </script>    
     <script>
         var ctx = document.getElementById('lumens1-chart').getContext('2d');
         var lumens1Chart = new Chart(ctx, {
@@ -380,10 +398,10 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens1',
+                    label: 'Lumens 1',
                     data: [],
-                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
                     borderWidth: 1
                 }]
             },
@@ -420,6 +438,13 @@
     
         var startDateSelector = flatpickr('#lumens1-start-date-selector');
     
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens1Data(new Date(today));
+    
         startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
             var selectedDate = new Date(selectedDates[0]);
             var today = new Date();
@@ -429,6 +454,7 @@
                 // Fetch lumens1 data in real-time
                 fetchRealtimeLumens1Data(selectedDate);
             } else {
+                // Fetch lumens1 data for the selected date
                 fetchLumens1Data(selectedDate);
             }
         });
@@ -436,7 +462,8 @@
         function fetchLumens1Data(selectedDate) {
             var startDate = selectedDate.toISOString().split('T')[0];
     
-            fetch('/get_sensor_data_lumens1?start_date=' + startDate)
+            // Fetch lumens1 data for the selected date
+            fetch('/get_realtime_lumens1_data?start_date=' + startDate)
                 .then(response => response.json())
                 .then(data => {
                     // Clear previous data
@@ -454,7 +481,7 @@
         }
     
         function fetchRealtimeLumens1Data(selectedDate) {
-            // Fetch entire lumens1 data for the selected date
+            // Fetch real-time lumens1 data for the selected date
             fetch('/get_realtime_lumens1_data?start_date=' + selectedDate.toISOString().split('T')[0])
                 .then(response => response.json())
                 .then(data => {
@@ -471,8 +498,7 @@
                     lumens1Chart.update();
                 });
         }
-    </script>
-    
+    </script>    
     <script>
         var ctx = document.getElementById('lumens2-chart').getContext('2d');
         var lumens2Chart = new Chart(ctx, {
@@ -480,7 +506,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens2',
+                    label: 'Lumens 2',
                     data: [],
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -520,6 +546,13 @@
     
         var startDateSelector = flatpickr('#lumens2-start-date-selector');
     
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens2Data(new Date(today));
+    
         startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
             var selectedDate = new Date(selectedDates[0]);
             var today = new Date();
@@ -529,6 +562,7 @@
                 // Fetch lumens2 data in real-time
                 fetchRealtimeLumens2Data(selectedDate);
             } else {
+                // Fetch lumens2 data for the selected date
                 fetchLumens2Data(selectedDate);
             }
         });
@@ -536,7 +570,8 @@
         function fetchLumens2Data(selectedDate) {
             var startDate = selectedDate.toISOString().split('T')[0];
     
-            fetch('/get_sensor_data_lumens2?start_date=' + startDate)
+            // Fetch lumens2 data for the selected date
+            fetch('/get_realtime_lumens2_data?start_date=' + startDate)
                 .then(response => response.json())
                 .then(data => {
                     // Clear previous data
@@ -554,7 +589,7 @@
         }
     
         function fetchRealtimeLumens2Data(selectedDate) {
-            // Fetch entire lumens2 data for the selected date
+            // Fetch real-time lumens2 data for the selected date
             fetch('/get_realtime_lumens2_data?start_date=' + selectedDate.toISOString().split('T')[0])
                 .then(response => response.json())
                 .then(data => {
@@ -571,7 +606,7 @@
                     lumens2Chart.update();
                 });
         }
-    </script>
+    </script>    
     <script>
         var ctx = document.getElementById('lumens3-chart').getContext('2d');
         var lumens3Chart = new Chart(ctx, {
@@ -579,10 +614,10 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens3',
+                    label: 'Lumens 3',
                     data: [],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
                     borderWidth: 1
                 }]
             },
@@ -619,6 +654,13 @@
     
         var startDateSelector = flatpickr('#lumens3-start-date-selector');
     
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens3Data(new Date(today));
+    
         startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
             var selectedDate = new Date(selectedDates[0]);
             var today = new Date();
@@ -628,6 +670,7 @@
                 // Fetch lumens3 data in real-time
                 fetchRealtimeLumens3Data(selectedDate);
             } else {
+                // Fetch lumens3 data for the selected date
                 fetchLumens3Data(selectedDate);
             }
         });
@@ -635,7 +678,8 @@
         function fetchLumens3Data(selectedDate) {
             var startDate = selectedDate.toISOString().split('T')[0];
     
-            fetch('/get_sensor_data_lumens3?start_date=' + startDate)
+            // Fetch lumens3 data for the selected date
+            fetch('/get_realtime_lumens3_data?start_date=' + startDate)
                 .then(response => response.json())
                 .then(data => {
                     // Clear previous data
@@ -653,7 +697,7 @@
         }
     
         function fetchRealtimeLumens3Data(selectedDate) {
-            // Fetch entire lumens3 data for the selected date
+            // Fetch real-time lumens3 data for the selected date
             fetch('/get_realtime_lumens3_data?start_date=' + selectedDate.toISOString().split('T')[0])
                 .then(response => response.json())
                 .then(data => {
@@ -678,10 +722,10 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens4',
+                    label: 'Lumens 4',
                     data: [],
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1
                 }]
             },
@@ -718,6 +762,13 @@
     
         var startDateSelector = flatpickr('#lumens4-start-date-selector');
     
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens4Data(new Date(today));
+    
         startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
             var selectedDate = new Date(selectedDates[0]);
             var today = new Date();
@@ -727,6 +778,7 @@
                 // Fetch lumens4 data in real-time
                 fetchRealtimeLumens4Data(selectedDate);
             } else {
+                // Fetch lumens4 data for the selected date
                 fetchLumens4Data(selectedDate);
             }
         });
@@ -734,7 +786,8 @@
         function fetchLumens4Data(selectedDate) {
             var startDate = selectedDate.toISOString().split('T')[0];
     
-            fetch('/get_sensor_data_lumens4?start_date=' + startDate)
+            // Fetch lumens4 data for the selected date
+            fetch('/get_realtime_lumens4_data?start_date=' + startDate)
                 .then(response => response.json())
                 .then(data => {
                     // Clear previous data
@@ -752,7 +805,7 @@
         }
     
         function fetchRealtimeLumens4Data(selectedDate) {
-            // Fetch entire lumens4 data for the selected date
+            // Fetch real-time lumens4 data for the selected date
             fetch('/get_realtime_lumens4_data?start_date=' + selectedDate.toISOString().split('T')[0])
                 .then(response => response.json())
                 .then(data => {
@@ -770,106 +823,115 @@
                 });
         }
     </script>    
-        <script>
-            var ctx = document.getElementById('temperature-chart').getContext('2d');
-            var temperatureChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: 'Temperature (°C)',
-                        data: [],
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        x: {
-                            ticks: {
-                                maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
-                            }
-                        },
-                        y: {
-                            beginAtZero: false
+    <script>
+        var ctx = document.getElementById('temperature-chart').getContext('2d');
+        var temperatureChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
                         }
                     },
-                    plugins: {
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
                         zoom: {
-                            pan: {
+                            wheel: {
                                 enabled: true,
-                                mode: 'x',
                             },
-                            zoom: {
-                                wheel: {
-                                    enabled: true,
-                                },
-                                pinch: {
-                                    enabled: true
-                                },
-                                mode: 'x',
+                            pinch: {
+                                enabled: true
                             },
-                        }
+                            mode: 'x',
+                        },
                     }
                 }
-            });
-        
-            var startDateSelector = flatpickr('#start-date-selector');
-        
-            startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
-                var selectedDate = new Date(selectedDates[0]);
-                var today = new Date();
-        
-                // Check if the selected date is today's date
-                if (selectedDate.toDateString() === today.toDateString()) {
-                    // Fetch temperature data in real-time
-                    fetchRealtimeTemperatureData(selectedDate);
-                } else {
-                    fetchTemperatureData(selectedDate);
-                }
-            });
-        
-            function fetchTemperatureData(selectedDate) {
-                var startDate = selectedDate.toISOString().split('T')[0];
-        
-                fetch('/get_sensor_data_temperature?start_date=' + startDate)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear previous data
-                        temperatureChart.data.labels = [];
-                        temperatureChart.data.datasets[0].data = [];
-        
-                        // Update chart with the received data
-                        data.temperature_data.forEach(item => {
-                            temperatureChart.data.labels.push(item.time);
-                            temperatureChart.data.datasets[0].data.push(item.temperature);
-                        });
-        
-                        temperatureChart.update();
-                    });
             }
-        
-            function fetchRealtimeTemperatureData(selectedDate) {
-                // Fetch entire temperature data for the selected date
-                fetch('/get_realtime_temperature_data?start_date=' + selectedDate.toISOString().split('T')[0])
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear previous data
-                        temperatureChart.data.labels = [];
-                        temperatureChart.data.datasets[0].data = [];
-        
-                        // Update chart with the received real-time data
-                        data.temperature_data.forEach(item => {
-                            temperatureChart.data.labels.push(item.time);
-                            temperatureChart.data.datasets[0].data.push(item.temperature);
-                        });
-        
-                        temperatureChart.update();
-                    });
+        });
+    
+        var startDateSelector = flatpickr('#start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeTemperatureData(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch temperature data in real-time
+                fetchRealtimeTemperatureData(selectedDate);
+            } else {
+                // Fetch temperature data for the selected date
+                fetchTemperatureData(selectedDate);
             }
-        </script>
-        
+        });
+    
+        function fetchTemperatureData(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch temperature data for the selected date
+            fetch('/get_realtime_temperature_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    temperatureChart.data.labels = [];
+                    temperatureChart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.temperature_data.forEach(item => {
+                        temperatureChart.data.labels.push(item.time);
+                        temperatureChart.data.datasets[0].data.push(item.temperature);
+                    });
+    
+                    temperatureChart.update();
+                });
+        }
+    
+        function fetchRealtimeTemperatureData(selectedDate) {
+            // Fetch real-time temperature data for the selected date
+            fetch('/get_realtime_temperature_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    temperatureChart.data.labels = [];
+                    temperatureChart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.temperature_data.forEach(item => {
+                        temperatureChart.data.labels.push(item.time);
+                        temperatureChart.data.datasets[0].data.push(item.temperature);
+                    });
+    
+                    temperatureChart.update();
+                });
+        }
+    </script>
+          
 </body>
 
 </html>

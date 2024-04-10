@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login/login.css') }}">
+    <link rel="stylesheet" href="../static/styles/login/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Login Form</title>
 </head>
 
@@ -15,16 +16,16 @@
         <form id="loginForm">
             <img class="logo" src="../static/images/LOGO-MMSU_2.webp" alt="MMSU Logo">
             <div class="form-group">
-                <label for="email">Email Address:</label>
+                <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
+                <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
             </div>
 
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="Password" required>
+                <i class="fas fa-lock" onclick="show()"></i>
             </div>
-
             <button type="button" onclick="login()">Login</button>
 
             <div class="forgot-password">
@@ -35,14 +36,14 @@
         <div class="horizontal-line"></div>
 
         <div class="signup-link">
-            <p>Don't have an account? <a href="register" class="btn">Sign Up</a>
+            <p>Don't have an account? <a href="register" class="btn">Sign Up</a></p>
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='javascripts/login/login.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/login/verifier.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="../static/javascripts/login/pass.js"></script>
+    <script src="../static/javascripts/login/verifier.js"></script>    
 </body>
 
 </html>

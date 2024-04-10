@@ -245,6 +245,13 @@ main .alert h2{
     color: #12612b;
 }
 
+main .alert p{
+    margin-top: 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: #00000043;
+}
 
 main .analyse{
     margin-top: 0%;
@@ -1221,6 +1228,16 @@ input[type="date"] {
         margin-top: 8rem;
         padding: 0 1rem;
     }
+
+    main .alert p{
+        margin-top: 0;
+        font-family: "Poppins", sans-serif;
+        font-size: 17px;
+        font-weight: bold;
+        color: #00000043;
+        margin-left: -10%;
+    }
+    
 
     main .new-users .user-list .user{
         flex-basis: 35%;
