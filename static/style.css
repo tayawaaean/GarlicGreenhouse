@@ -812,7 +812,7 @@ main .recent-orders a{
 
 .right-section .dark-mode{
     background-color: var(--color-light);
-    margin-left: 80px;
+    margin-left: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -844,23 +844,23 @@ main .recent-orders a{
 }
 
 .right-section .nav .profile .profile-photo{
-    width: 2.8rem;
-    height: 2.8rem;
-    border-radius: 50%;
-    overflow: hidden;
+    display: none;
 }
 
-.right-section .user-profile{
+.right-section .user-profile {
+    align-items: center;
     display: flex;
-    justify-content: center;
-    text-align: center;
-    margin-top: 25rem;
-    background-color: var(--color-white);
-    padding: var(--card-padding);
+    flex-direction: column;
+    background-color: var(--color-primary);
+    padding: 0.5rem;
     border-radius: var(--card-border-radius);
+    margin-top: 2rem;
     box-shadow: var(--box-shadow);
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%;
+    max-width: 380px;
+    height: auto;
 }
 
 .right-section .user-profile:hover{
@@ -868,18 +868,25 @@ main .recent-orders a{
 }
 
 .right-section .user-profile img{
-    width: 14rem;
+    display: flex;
+    margin-left: 4rem;
+    width: 10rem;
     height: auto;
     margin-bottom: 0.8rem;
-    margin-left: 1.8rem;
-    border-radius: 50%;
+
 }
 
 .right-section .user-profile h2 {
+    margin-top: -0.5rem;
     margin-bottom: 0.2rem;
+    font-size: 1.5rem;
+    text-align: center;
     color: darkgreen;
 }
 
+.right-section .user-profile p {
+    text-align: center;
+}
 
 .right-section .reminders{
     margin-top: 2rem;
@@ -895,12 +902,12 @@ main .recent-orders a{
 .right-section .reminders .header span{
     padding: 10px;
     box-shadow: var(--box-shadow);
-    background-color: var(--color-white);
+    background-color: var(--color-primary);
     border-radius: 50%;
 }
 
 .right-section .reminders .notification{
-    background-color: var(--color-white);
+    background-color: var(--color-primary);
     display: flex;
     align-items: center;
     gap: 1rem;

@@ -1,0 +1,177 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/styles/Admin/users.css">
+    <link rel="stylesheet" href="../static/styles/Admin/settings.css">
+    <title>Research Directorate</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="Logo">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2 style="color: #12612b;">G0<span class="danger">Nursery</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="admin_dashboard" >
+                    <span class="material-icons-sharp">monitor</span>
+                    <h3>Dashboard</h3>
+                </a>                                               
+                <a href="admin_control">
+                    <span class="material-icons-sharp">settings_remote</span>
+                    <h3>Control</h3>
+                </a>                
+                <a href="admin_users">
+                    <span class="material-symbols-outlined">
+                        manage_accounts
+                        </span>
+                    <h3>User</h3>
+                </a>
+                <a href="settings"  class="active">
+                    <span class="material-symbols-outlined">
+                        settings
+                        </span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="main_login" onclick="confirmLogout()">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+        <main>
+            <div class="header">
+                <h2> Settings </h2>
+            </div>
+            <!-- Delete All Data Form -->
+            <div class="delete-container">
+                <h2>Delete All Data</h2>
+                <p>Please enter your password to confirm you want to delete all data. This action cannot be undone.</p>
+                <form id="delete-form" method="POST" action="/delete_all_data">
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                    <button type="submit" class="confirm-btn">Confirm</button>
+                    <button type="button" class="back-btn" onclick="window.history.back()">Back</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+
+            </div>
+            <!-- End of Nav -->
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2>Research Directorate</h2>
+                    <p>MMSU Garlic Research Center and </p>
+                    <p>Food Laboratory</p>
+                </div>
+            </div>
+
+            <div class="reminders">
+                <div class="header">
+                    <h2>Reminders</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+
+                <div class="activeAlarms">
+                    {% for schedule in schedules %}
+                    <div class="notification">
+                        <div class="content">
+                            <div class="info">
+                                <h3 class="alarmhead">{{ schedule.start_date }} - {{ schedule.end_date }}</h3> <!-- Displaying date range -->
+                                <p>
+                                    Time On: {{ schedule.time_on_start }} - {{ schedule.time_on_end }}
+                                </p>
+                                <p>
+                                    Time Off: {{ schedule.time_off_start }} - {{ schedule.time_off_end }}
+                                </p>
+                            </div>
+                            <span class="Dbutton">
+                                <button class="deleteButton" onclick="confirmDeleteAllSchedules()">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </span>                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    <script src="../static/index.js"></script>
+    <script>
+        function deleteAllData() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm-password").value;
+          
+            // Check if password and confirm password are not empty
+            if (password === '' || confirmPassword === '') {
+              alert("Please enter both password fields.");
+              return;
+            }
+          
+            // Make an AJAX request to the Flask route for deleting all data
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/delete_all_data", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                  var response = JSON.parse(xhr.responseText);
+                  if (response.success) {
+                    // Data deletion successful, show success message and redirect to /settings
+                    alert("All data deleted successfully.");
+                    window.location.href = response.redirect;
+                  } else {
+                    // Data deletion unsuccessful, show error message
+                    alert(response.message);
+                  }
+                } else {
+                  console.error("Delete all data request failed.");
+                }
+              }
+            };
+          
+            var formData = "password=" + encodeURIComponent(password) + "&confirm-password=" + encodeURIComponent(confirmPassword);
+            xhr.send(formData);
+          }
+</script>    
+    <script src="/static/javascripts/Admin/users.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

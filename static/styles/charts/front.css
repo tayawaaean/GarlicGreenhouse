@@ -40,6 +40,11 @@ button {
   transition: opacity 0.3s ease;
   z-index: 9999;
 }
+.how-content ol li.left-align {
+  text-align: left;
+  margin-top: 10px;
+}
+
 
 .modal-container.show{
   pointer-events: auto;
@@ -95,6 +100,80 @@ button {
   font-size: 14px;
   padding: 10px 25px;
   text-decoration: none;
+}
+
+#howToUseBtn{
+  background-color: transparent;
+    border: none;
+    color: #12612b;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    font-family: Simplifica;
+    font-weight: bold;
+    padding-bottom: 20px;
+    box-shadow: none;
+}
+
+#howToUseBtn .bx-question-mark{
+  font-size: 17px;
+    border: 1px solid #666;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+#howToUseBtn i{
+  margin-left: 5px;
+}
+
+.how {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.how-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+  border-radius: 15px;
+  font-family: Simplifica;
+  font-size: 20px;
+  padding-left: 40px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.iconss {
+  float: right; /* Float the icon to the right */
+      margin-left: 10px; /* Add some space between the icon and the text */
+      color: #888;
+      cursor: pointer;
 }
 
 .img1 {
@@ -387,6 +466,42 @@ button {
 #btn-box a {
   color: inherit;
   text-decoration: none;
+}
+.how-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 15px;
+  font-family: Simplifica;
+  font-size: 20px;
+  padding-left: 40px;
+  margin-top: 250px;
+}
+
+#howToUseBtn{
+  background-color: transparent;
+  border: none;
+  color: #12612b;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  position: relative;
+  font-family: Simplifica;
+  font-weight: bold;
+}
+#howToUseBtn .bx-question-mark{
+  font-size: 13px;
+  border: 1px solid #666;
+  border-radius: 50%;
+  padding: 5px;
 }
 }
 

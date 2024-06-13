@@ -1,0 +1,255 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/styles/control/style.css">
+    <link rel="stylesheet" href="../static/styles/control/confirm.css">
+    <link rel="stylesheet" href="../static/styles/control/ac.css">
+        <style>
+            #userDisplay1,  
+            #userDisplay2,
+            #userDisplay3,
+            #userDisplay4,
+            #userDisplayac {
+                font-size: 15px;}
+        </style>
+    <title>Research Directorate</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="Logo">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2 style="color: #12612b;">G0<span class="danger">Nursery</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="admin_dashboard" >
+                    <span class="material-icons-sharp">monitor</span>
+                    <h3>Dashboard</h3>
+                </a>                                               
+                <a href="admin_control" class="active">
+                    <span class="material-icons-sharp">settings_remote</span>
+                    <h3>Control</h3>
+                </a>                
+                <a href="admin_users" >
+                    <span class="material-symbols-outlined">
+                        manage_accounts
+                        </span>
+                    <h3>User</h3>
+                </a>
+                <a href="settings">
+                    <span class="material-symbols-outlined">
+                        settings
+                        </span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="main_login" onclick="confirmLogout()">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+        <main>
+            <div class="header">
+                <h2> CONTROL PANEL </h2>
+            </div>
+            <!-- Analyses -->
+            <div class="analyse">
+                <div class="sales">
+                    <div class="status">
+                
+                        <div class="info">
+                            <h3>AC Control</h3>
+                        </div>
+                        <div class="temperature-control">
+            
+                            <button onclick="updateTemperature('down')">-</button>
+                            <input type="number" step="1" id="temperatureInput" min="17" max="30" value=" " readonly>
+                            <button onclick="updateTemperature('up')">+</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="one">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack A</h3>
+                        </div>
+                        
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer1">
+                            <button class="toggleOn" onclick="toggleOn(1)">On</button>
+                            <button class="toggleOff" onclick="toggleOff(1)">Off</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="two">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack B</h3>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer2">
+                            <button class="toggleOn"onclick="toggleOn(2)">On</button>
+                            <button class="toggleOff"onclick="toggleOff(2)">Off</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="three">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack C</h3>
+                        </div>
+                        
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer3">
+                            <button class="toggleOn" onclick="toggleOn(3)">On</button>
+                            <button class="toggleOff"onclick="toggleOff(3)">Off</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="four">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack D</h3>
+                        </div>
+
+                        <div class="toggle-container" id="toggleContainer4">
+                            <button class="toggleOn" onclick="toggleOn(4)">On</button>
+                            <button class="toggleOff" onclick="toggleOff(4)">Off</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="visits">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Controlled by</h3>
+                            <span id="userDisplay1"></span><br>
+                            <span id="userDisplay2"></span><br>
+                            <span id="userDisplay3"></span><br>
+                            <span id="userDisplay4"></span><br>
+                            <span id="userDisplayac"></span><br>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>Reza</b></p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="../static/images/profile-1.jpg">
+                    </div>
+                </div>
+
+            </div>
+            <!-- End of Nav -->
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2>Research Directorate</h2>
+                    <p>MMSU Garlic Research Center and </p>
+                    <p>Food Laboratory</p>
+                </div>
+            </div>
+
+            <div class="reminders">
+                <div class="header">
+                    <h2>Reminders</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+
+
+                <div class="activeAlarms">
+                    {% for schedule in schedules %}
+                    <div class="notification">
+                        <div class="content">
+                            <div class="info">
+                                <h3 class="alarmhead">{{ schedule.start_date }} - {{ schedule.end_date }}</h3> <!-- Displaying date range -->
+                                <p>
+                                    Time On: {{ schedule.time_on_start }} - {{ schedule.time_on_end }}
+                                </p>
+                                <p>
+                                    Time Off: {{ schedule.time_off_start }} - {{ schedule.time_off_end }}
+                                </p>
+                            </div>
+                            <span class="Dbutton">
+                                <button class="deleteButton" onclick="confirmDeleteAllSchedules()">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </span>                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        
+    <script src="../static/javascripts/dashboard/ac_send.js"></script> 
+    <script src="../static/javascripts/dashboard/latest_lightcontrol.js"></script>
+    <script src="../static/javascripts/dashboard/confirm.js"></script>
+    <script src="../static/javascripts/dashboard/toggle.js"></script>
+    <script src="../static/javascripts/dashboard/temperaturebutton.js"></script>
+    <script src="../static/javascripts/dashboard/logout.js"></script>
+    <script src="../static/javascripts/dashboard/orders.js"></script>
+    <script src="../static/javascripts/schedule.js"></script>
+    <script src="../static/javascripts/dashboard/index.js"></script>
+    <script src="../static/javascripts/dashboard/control_relay.js"></script>
+    <script src="../static/javascripts/dashboard/auth.js"></script>
+    <script src="../static/javascripts/dashboard/publish_sensor_data.js"></script>
+    <script src="../static/javascripts/dashboard/relay_states.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+</body>
+
+</html>

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="../static/styles/about_us/style_aboutus.css">
-    <title>Research&Development</title>
+    <title>ResearchDirectorate</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="index" >
+                <a href="dashboard" >
                     <span class="material-icons-sharp">
                         monitor
                     </span>
@@ -115,6 +115,45 @@
                 <p class="hidden"><span class = "highlight">Sustainability:</span> We are committed to sustainable farming practices to reduce your ecological footprint.</p>
                 <p class="hidden"><span class = "highlight">Quality Output:</span> Our technology promises exceptional garlic and improved yield.</p>  
                 </div>
+                <div class="who-we-are">
+                    <h2>Meet The Members</h2>
+                    <div class="members-image">
+                        <div class="first-layer">
+                            <div class="hexagon">
+                                <img id="aeanTayawa" src="/static/images/Aean, Tayawa.webp" alt="">
+                                <h1 id="aeanTayawaH1"  class="devNames">Aean Tayawa</h1>
+                            </div>
+                            <div class="hexagon">
+                                <img id="mariaMangaoil" src="/static/images/mangaoil (1).webp" alt="">
+                                <h1 id="mariaMangaoilH1" class="devNames">Maria Mangaoil</h1>
+                            </div>
+                    </div>
+                    <div class="second-layer">
+                        <div class="hexagon">
+                            <img id="andraCagat" src="/static/images/Cagat, Andra.webp" alt="">
+                            <h1 id="andraCagatH1" class="devNames">Andra Camille Cagat</h1>
+                        </div>
+                        <div class="logo2">
+                            <img class="logo" src="/static/images/LOGO-MMSU_2.webp" alt="">
+                        </div>
+                        <div class="hexagon">
+                            <img id="reginaGarnace" src="/static/images/Garnace, Regina.webp" alt="">
+                            <h1 id="reginaGarnaceH1" class="devNames">Regina Jane Garnace</h1>
+                        </div>
+                    </div>
+                
+                    <div class="third-layer">
+                        <div class="hexagon">
+                            <img id="jandelTejada" src="/static/images/Tejada, Jandel Jade.webp" alt="">
+                            <h1 id="jandelTejadaH1" class="devNames">Jandel Jade Tejada</h1>
+                        </div>
+                        <div class="hexagon">
+                            <img id="dexterPerdido" src="/static/images/Perdido, Dexter.webp" alt="">
+                            <h1 id="dexterPerdidoH1" class="devNames">Dexter Perdido</h1>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
             </div>
         </div>
                 <a href = "#" class="read-more">Read More</a>
@@ -138,7 +177,7 @@
             <div class="user-profile">
                 <div class="logo">
                     <img src="../static/images/LOGO-MMSU.webp">
-                    <h2>Research&Development</h2>
+                    <h2>Research Directorate</h2>
                     <p>MMSU Garlic Research Center and </p>
                     <p>Food Laboratory</p>
                 </div>
@@ -156,6 +195,6 @@
     <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
     <script src="../static/index.js"></script>
-    <script src="../static/javascripts/about_us/aboutusjs.js"></script>
+    <script src="/static/about_us/about_us.js"></script>
 </body>
 </html>

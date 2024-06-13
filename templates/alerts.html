@@ -7,9 +7,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../static/style_alerts.css">
     <link rel="stylesheet" href="../static/dycalendar.css">
-    <title>Research Development</title>
+    <title>Research Directorate</title>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="index" >
+                <a href="dashboard" >
                     <span class="material-icons-sharp">
                         monitor
                     </span>
@@ -85,11 +86,29 @@
 
         <!-- Main Content -->
         <main>
+            <!-- Add a modal dialog -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <i class='bx bx-x-circle iconss' id="closeModal"></i>
+
+                        <p>Instructions on how to use the scheduler:</p>
+                        <ol>
+                            <li>Select a date from the calendar.</li>
+                            <li>Set the start and end dates.</li>
+                            <li>Enter the start and end times.</li>
+                            <li>Enter the start and end temperatures.</li>
+                            <li>Enter your password and confirm it.</li>
+                            <li>Click 'Set Schedule' to save the schedule.</li>
+                            <li>Click 'Clear' to reset all inputs.</li>
+                        </ol>
+                </div>                  
+            </div>
+  
             <div class="alert">
                 <h2>SCHEDULER</h2>
-                <p>Manage your schedule effortlessly with scheduler, which lets you set time and date for light control. <br>
-                    Simplify your daily routines with precise control over anywhere.</p>
-                </div>
+                <button id="howToUseBtn" onclick="showInstructions()">How to Use <i class='bx bx-question-mark'></i>
+                </button>
+              </div>
             <!-- Analyses -->
             <div class="analyse">
                 <div class="sales" id="calendar">
@@ -99,6 +118,18 @@
                     <div class="overlay"></div>
                     <div id="displayContainer">Select a date</div>
                     <div class="timer-display" id="displayTime">00:00:00</div>
+                    <div class="time-container">
+                        <div class="inputs2">
+                            <span>Start Temperature:</span>
+                            <input type="number" id="starttemperatureInput" placeholder="17" min="17" max="30"/>
+                        </div>
+                    </div>
+                    <div class="time-container">
+                        <div class="inputs2">
+                            <span>End Temperature:</span>
+                            <input type="number" id="endtemperatureInput" placeholder="17" min="17" max="30"/>
+                        </div>
+                    </div>
 
                     <div class="time-container">
                         <div class="inputs">
@@ -160,7 +191,7 @@
             <div class="user-profile">
                 <div class="logo">
                     <img src="../static/images/LOGO-MMSU.webp">
-                    <h2>Research&Development</h2>
+                    <h2>Research Directorate</h2>
                     <p>MMSU Garlic Research Center and </p>
                     <p>Food Laboratory</p>
                 </div>
@@ -177,11 +208,14 @@
                                 <h3 class="alarmhead">{{ schedule.start_date }} - {{ schedule.end_date }}</h3> <!-- Displaying date range -->
                                 <p>
                                     Time On: {{ schedule.time_on_start }} - {{ schedule.time_on_end }}
+                                    Temp : {{ schedule.start_temperature }}
                                 </p>
                                 <p>
                                     Time Off: {{ schedule.time_off_start }} - {{ schedule.time_off_end }}
+                                    Temp : {{ schedule.end_temperature }}
                                 </p>
                             </div>
+
                             <span class="Dbutton">
                                 <button class="deleteButton" onclick="confirmDeleteAllSchedules()">
                                     <i class="fa-solid fa-trash-can"></i>

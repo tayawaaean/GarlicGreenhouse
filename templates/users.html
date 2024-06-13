@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="/static/style_user.css">
+    <link rel="stylesheet" href="../static/style_user.css">
      
-    <title>Research&Development</title>
+    <title>Research Directorate</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
                 </div>
     
                 <div class="sidebar">
-                    <a href="index" >
+                    <a href="dashboard" >
                         <span class="material-icons-sharp">monitor</span>
                         <h3>Dashboard</h3>
                     </a>                             
@@ -88,7 +88,7 @@
                 <div class="container-profile">
                     <!-- Use Flask templating to dynamically load the profile picture -->
                     {% if filename %}
-                        <img class="profile_image" id="profileImage" src="{{ url_for('static', filename='profilepics/' + filename) }}" alt="profile_pic">
+                        <img class="profile_image" id="profileImage" src="/static/profilepics/{{ users.filename_web }}" alt="profile_pic">
                     {% else %}
                         <img class="profile_image" id="profileImage" src="/static/profilepics/Prof_placeH.png" alt="profile_pic">
                     {% endif %}
@@ -102,7 +102,7 @@
                     <span class="close" id="closeModalBtn">&times;</span>
                     <h2>Upload Image</h2>
                     {% if filename %}
-                    <img class="image_input_modal" id="uploadedImage" alt="Uploaded Image" src="{{ url_for('static', filename='profilepics/' + filename) }}">
+                    <img class="image_input_modal" id="uploadedImage" alt="Uploaded Image" src="/static/profilepics/{{ users.filename_web }}">
                     {% endif %}
                     <input class="select_img" type="file" id="imageInput" accept="image/*">
                 </div>
@@ -155,15 +155,58 @@
                     </span>
                 </button>
 
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>Reza</b></p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="../static/images/profile-1.jpg">
+                    </div>
+                </div>
+
             </div>
             <!-- End of Nav -->
 
             <div class="user-profile">
                 <div class="logo">
                     <img src="../static/images/LOGO-MMSU.webp">
-                    <h2>Research&Development</h2>
+                    <h2>Research Directorate</h2>
                     <p>MMSU Garlic Research Center and </p>
                     <p>Food Laboratory</p>
+                </div>
+            </div>
+
+            <div class="reminders">
+                <div class="header">
+                    <h2>Reminders</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+
+
+                <div class="activeAlarms" >
+                    {% for schedule in schedules %}
+                    <div class="notification">
+                        <div class="content">
+                            <div class="info" style="margin-top:10px">
+                                <h3 class="alarmhead">{{ schedule.start_date }} - {{ schedule.end_date }}</h3> <!-- Displaying date range -->
+                                <p>
+                                    Time On: {{ schedule.time_on_start }} - {{ schedule.time_on_end }}
+                                </p>
+                                <p>
+                                    Time Off: {{ schedule.time_off_start }} - {{ schedule.time_off_end }}
+                                </p>
+                            </div>
+                            <span class="Dbutton">
+                                <button class="deleteButton" onclick="confirmDeleteAllSchedules()">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </span>                            
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -174,9 +217,12 @@
 
 
     </div>
-    <script src="{{ url_for('static', filename='javascripts/schedule.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
     <script src="/static/index.js"></script>
+    <script src="../static/javascripts/dashboard/logout.js"></script>
+    <script src="../static/javascripts/dashboard/orders.js"></script>
+    <script src="../static/javascripts/dashboard/relay_states.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="{{ url_for('static', filename='orders.js') }}"></script>
     <script>
         var hoverEffect = document.getElementById('form-group_modal');

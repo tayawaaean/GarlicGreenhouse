@@ -126,6 +126,7 @@ aside{
     height: 100vh;
 }
 
+
 aside .Logo{
     display: flex;
     align-items: center;
@@ -594,6 +595,90 @@ main .recent-orders a{
     border-radius: 50%;
     overflow: hidden;
 }
+.members-image{
+    display: flex;
+    flex-direction: column;
+}
+.first-layer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.second-layer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.third-layer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.hexagon {
+    width: 150px; /* Adjust hexagon width */
+    height: 150px; /* Adjust hexagon height */
+    background-color: white;
+    position: relative;
+    margin: 5px; /* Adjust margin */
+    clip-path: polygon(
+      50% 0%,
+      100% 25%,
+      100% 75%,
+      50% 100%,
+      0% 75%,
+      0% 25%
+    );
+    
+  }
+  .devNames{
+    width: 100%;
+    position: absolute;
+    font-size: 11px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    color: white;
+    font-size: 100%;
+    background-color: rgba(  0, 0, 0, 0.2);
+    transition: ease-in-out 1s;
+    display: none;
+}
+.devNames:hover{
+    display: block;
+}
+  
+  .hexagon img {
+    position: absolute;
+    width: 100%; /* Adjust image size as needed */
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+.logo2{
+    width: 150px; /* Adjust hexagon width */
+    height: 150px; /* Adjust hexagon height */
+    background-color: white;
+    position: relative;
+    margin: 5px; /* Adjust margin */
+    clip-path: polygon(
+      50% 0%,
+      100% 25%,
+      100% 75%,
+      50% 100%,
+      0% 75%,
+      0% 25%
+    );
+  }
+.logo2 .logo{
+    position: absolute;
+    width: 90%; /* Adjust image size as needed */
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
 
 .right-section .user-profile {
@@ -765,6 +850,73 @@ main .recent-orders a{
 }
 
 @media screen and (max-width: 768px) {
+    
+    .members-image{
+        display: flex;
+        flex-direction: column;
+    }
+    .first-layer{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .second-layer{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .third-layer{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .hexagon {
+        width: 90px; /* Adjust hexagon width */
+        height: 90px; /* Adjust hexagon height */
+        margin: 5px; /* Adjust margin */
+        clip-path: polygon(
+          50% 0%,
+          100% 25%,
+          100% 75%,
+          50% 100%,
+          0% 75%,
+          0% 25%
+        );
+      }
+      .hexagon img {
+        z-index: 0;
+        position: absolute;
+        width: 100%; /* Adjust image size as needed */
+        background-color: white;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    .logo2{
+        width: 90px; /* Adjust hexagon width */
+        height: 90px; /* Adjust hexagon height */
+        background-color: white;
+        position: relative;
+        margin: 5px; /* Adjust margin */
+        clip-path: polygon(
+          50% 0%,
+          100% 25%,
+          100% 75%,
+          50% 100%,
+          0% 75%,
+          0% 25%
+        );
+      }
+    .logo2 .logo{
+        position: absolute;
+        width: 90%; /* Adjust image size as needed */
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
     .container{
         width: 100%;
         grid-template-columns: 1fr;

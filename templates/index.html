@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.1.1/chartjs-plugin-zoom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>Research&Development</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>Research Directorate</title>
 </head>
 
 <body>
@@ -50,7 +51,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="index" class="active">
+                <a href="dashboard" class="active">
                     <span class="material-icons-sharp">monitor</span>
                     <h3>Dashboard</h3>
                 </a>                             
@@ -107,6 +108,23 @@
         <main>
             <div class="header">
                 <h2> Monitoring Panel </h2>
+            </div>
+            <button id="howToUseBtn" onclick="showInstructions()">How to Use <i class='bx bx-question-mark'></i>
+            </button>
+            <!-- Add a modal dialog -->
+            <div id="how" class="how">
+                <div class="how-content">
+                    <i class='bx bx-x-circle iconss' id="closehow"></i>
+
+                    <p>Welcome to the Monitoring Panel! Here's how to use it:</p>
+            <ol>
+                <li class="left-align">Choose a date from the calendar.</li>
+                <li class="left-align">View the temperature and humidity readings for that date.</li>
+                <li class="left-align">Explore the light intensity data for each rack.</li>
+                <li class="left-align">Use the sidebar to navigate to different sections.</li>
+                <li class="left-align">Check your reminders for any scheduled tasks.</li>
+            </ol>
+                </div>                  
             </div>
             <!-- Analyses -->
             <div class="analyse">
@@ -217,7 +235,7 @@
             <div class="user-profile">
                 <div class="logo">
                     <img src="../static/images/LOGO-MMSU.webp">
-                    <h2>Research&Development</h2>
+                    <h2>Research Directorate</h2>
                     <p>MMSU Garlic Research Center and </p>
                     <p>Food Laboratory</p>
                 </div>
@@ -271,19 +289,6 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
-        // Get today's date in the format YYYY-MM-DD
-        var today = new Date().toISOString().split('T')[0];
-    
-        // Set values for all date input fields
-        document.getElementById('start-date-selector').value = today;
-        document.getElementById('humidity-start-date-selector').value = today;
-        document.getElementById('lumens1-start-date-selector').value = today;
-        document.getElementById('lumens2-start-date-selector').value = today;
-        document.getElementById('lumens3-start-date-selector').value = today;
-        document.getElementById('lumens4-start-date-selector').value = today;
-    </script>
-    
-    <script>
         var ctx = document.getElementById('humidity-chart').getContext('2d');
         var humidityChart = new Chart(ctx, {
             type: 'line',
@@ -292,8 +297,8 @@
                 datasets: [{
                     label: 'Humidity (%)',
                     data: [],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
             },
@@ -301,7 +306,7 @@
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
                         }
                     },
                     y: {
@@ -398,7 +403,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens 1',
+                    label: 'Lumens1',
                     data: [],
                     backgroundColor: 'rgba(255, 206, 86, 0.2)',
                     borderColor: 'rgba(255, 206, 86, 1)',
@@ -409,7 +414,7 @@
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
                         }
                     },
                     y: {
@@ -498,7 +503,7 @@
                     lumens1Chart.update();
                 });
         }
-    </script>    
+    </script>
     <script>
         var ctx = document.getElementById('lumens2-chart').getContext('2d');
         var lumens2Chart = new Chart(ctx, {
@@ -506,10 +511,10 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens 2',
+                    label: 'Lumens2',
                     data: [],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1
                 }]
             },
@@ -517,7 +522,7 @@
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
                         }
                     },
                     y: {
@@ -614,10 +619,10 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens 3',
+                    label: 'Lumens3',
                     data: [],
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1
                 }]
             },
@@ -625,7 +630,7 @@
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
                         }
                     },
                     y: {
@@ -722,7 +727,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Lumens 4',
+                    label: 'Lumens4',
                     data: [],
                     backgroundColor: 'rgba(255, 159, 64, 0.2)',
                     borderColor: 'rgba(255, 159, 64, 1)',
@@ -733,7 +738,7 @@
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
                         }
                     },
                     y: {
@@ -841,7 +846,7 @@
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 20, // Display maximum of 20 ticks on x-axis
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
                         }
                     },
                     y: {
@@ -930,8 +935,32 @@
                     temperatureChart.update();
                 });
         }
+    </script>   
+    <script>
+        // JavaScript to show and hide the modal dialog
+        var modal = document.getElementById("how");
+        var btn = document.getElementById("howToUseBtn");
+        var span = document.getElementsByClassName("close")[0];
+        var closeModalBtn = document.getElementById("closehow");
+    
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+    
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    
+        // When the user clicks on the close icon, close the modal
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
     </script>
-          
+    
 </body>
 
 </html>

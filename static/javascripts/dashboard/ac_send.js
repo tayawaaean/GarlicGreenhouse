@@ -1,4 +1,4 @@
-let currentTemperature = 20;
+let currentTemperature = 17;
 const temperatureInput = document.getElementById('temperatureInput');
 
 // Set initial temperature value

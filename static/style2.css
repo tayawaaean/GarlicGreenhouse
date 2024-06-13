@@ -52,7 +52,6 @@ body::before {
   }
 }
 
-
 .container header {
   font-size: 30px;
   font-weight: 600;
@@ -232,10 +231,6 @@ form .input-field {
 }
 
 @media screen and (max-width: 768px) {
-  body {
-    overflow: hidden;
-  }
-
   body::before {
     content: "";
     position: absolute;

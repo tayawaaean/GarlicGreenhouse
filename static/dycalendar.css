@@ -411,6 +411,42 @@
     .aside {
         height: 10px;
     }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 15px;
+        font-family: Simplifica;
+        font-size: 20px;
+        padding-left: 40px;
+        margin-top: 250px;
+      }
+
+      #howToUseBtn{
+        background-color: transparent;
+        border: none;
+        color: #12612b;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        position: relative;
+        font-family: Simplifica;
+        font-weight: bold;
+      }
+      #howToUseBtn .bx-question-mark{
+        font-size: 13px;
+        border: 1px solid #666;
+        border-radius: 50%;
+        padding: 5px;
+      }
   }
 
   @media only screen and (min-width: 1200px) {

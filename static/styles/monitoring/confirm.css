@@ -1,0 +1,159 @@
+.confirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+
+    opacity: 0;
+    animation-name: confirm---open;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.confirm--close{
+    animation-name: confirm---close;
+}
+
+.confirm__window{
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    font-size: 14px;
+    font-family: "Noto Sans", sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3 );
+
+    opacity: 0;
+    transform: scale(0.75);
+    animation-name: confirm__window---open;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.2s;
+}
+
+.confirm__titlebar,
+.confirm__content,
+.confirm__buttons{
+    padding: 1.25em;
+}
+
+.confirm__titlebar{
+    background: #12612b;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.confirm__title{
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.confirm__close{
+    background: none;
+    outline: none;
+    border: none;
+    transform: scale(2.5);
+    color: #ffffff;
+    transition: color 0.15s;
+}
+
+.confirm__close:hover{
+    color: #ff0000;
+    cursor: pointer;
+}
+
+.confirm__content{
+    line-height: 1.8em;
+}
+
+.confirm__buttons{
+    background: #eeeeee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirm__button{
+    padding: 0.4em 0.8em;
+    border: 2px solid #0e7407;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #0e7407;
+    font-weight: bold;
+    font-size: 1.1em;
+    font-family: "Noto Sans", sans-serif;
+    margin-left: 0.6em;
+    cursor: pointer;
+    outline: none;
+}
+
+.confirm__button--fill{
+    background: #12612b;
+    color: #ffffff;
+}
+
+.confirm__button:focus{
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.right-section .activeAlarms .notification #button {
+    background-color: #12612b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 40%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+
+.confirm__button {
+    padding: 15px 30px; /* Increase padding to make the buttons bigger */
+    font-size: 18px;    /* Increase font size */
+    width: 100px;       /* Optional: Set a fixed width */
+    border-radius: 5px; /* Optional: Add some border radius for aesthetics */
+}
+
+.confirm__button--ok {
+    background-color: #4CAF50; /* Optional: Different background for OK button */
+    color: white;
+}
+
+.confirm__button--cancel {
+    background-color: #f44336; /* Optional: Different background for Cancel button */
+    color: white;
+}
+
+
+@keyframes confirm---open{
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+@keyframes confirm---close {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
+
+@keyframes confirm__window---open {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

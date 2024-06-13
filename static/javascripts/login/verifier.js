@@ -1,34 +1,36 @@
+// login.js
+
+// Function to handle form submission
 function login() {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
+    // Get email and password from the form
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
 
-    // Check if email and password are empty
-    if (email === '' || password === '') {
-        document.getElementById("error-message").innerText = "Email and Password are required.";
-        return;
-    }
-
-    // Make an AJAX request to the Flask route for login verification
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/login", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    // Redirect to the /index route on successful login
-                    window.location.href = "/index";
-                } else {
-                    document.getElementById("error-message").innerText = response.message;
-                }
-            } else {
-                console.error("Login request failed.");
-            }
+    // Send a POST request to the backend with email and password
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, password: password }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Redirect based on user type
+            return response.json();
+        } else {
+            throw new Error('Invalid email or password');
         }
-    };
-
-    var data = JSON.stringify({ email: email, password: password });
-    xhr.send(data);
+    })
+    .then(data => {
+        if (data.user_type === 'Admin') {
+            window.location.href = '/admin_index';
+        } else {
+            window.location.href = '/index';
+        }
+    })
+    .catch(error => {
+        // Display error message
+        document.getElementById('error-message').innerText = error.message;
+    });
 }

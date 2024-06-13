@@ -193,8 +193,15 @@ function proceedWithAlarmSetting() {
         return; // Exit the function if time_on and time_off are the same
     }
 
+    const startTempInput = document.getElementById('starttemperatureInput').value;
+    const endTempInput = document.getElementById('endtemperatureInput').value;
     const passwordInput = document.getElementById('passwordInput').value;
     const confirmPasswordInput = document.getElementById('confirmpasswordInput').value;
+
+    if (!startTempInput || !endTempInput) {
+        alert("Fill in both start temperature and end temperature");
+        return; // Exit the function if either start temperature or end temperature is missing
+    }
 
     // Check if passwords match
     if (passwordInput !== confirmPasswordInput) {
@@ -219,6 +226,8 @@ function proceedWithAlarmSetting() {
         end_date: endDateSelected,
         time_on: `${hourInput.value}:${minuteInput.value}`,
         time_off: `${hourInput2.value}:${minuteInput2.value}`,
+        start_temperature: startTempInput,
+        end_temperature: endTempInput,
         password: passwordInput,
         confirm_password: confirmPasswordInput
     };
@@ -254,6 +263,8 @@ function proceedWithAlarmSetting() {
         alarmMinute: minuteInput.value,
         alarmHour2: hourInput2.value,
         alarmMinute2: minuteInput2.value,
+        startTemperature: startTempInput, // Include start temperature
+        endTemperature: endTempInput, // Include end temperature
         isActive: false
     };
 
@@ -264,7 +275,6 @@ function proceedWithAlarmSetting() {
     // Clearing inputs after setting the alarm
     clearInputs();
 }
-
 
 
 // Clear button click event listener
@@ -309,3 +319,32 @@ window.onload = () => {
     hourInput2.value = appendZero(initialHour);
     minuteInput2.value = appendZero(initialMinute);
 };
+
+// JavaScript to show and hide the modal dialog
+var modal = document.getElementById("modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("howToUseBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+var closeModalBtn = document.getElementById("closeModal");
+
+closeModalBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+

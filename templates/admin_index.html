@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/styles/charts/front.css">
+    <link rel="stylesheet" href="../static/styles/charts/style1.css">
+    <link rel="stylesheet" href="../static/styles/charts/style.css">
+    <link rel="stylesheet" href="../static/styles/control/confirm.css">
+    <link rel="stylesheet" href="../static/styles/charts/style_chart.css">
+    <link rel="stylesheet" href="../static/styles/charts/chartscalendar.css">
+    <link rel="stylesheet" href="../static/charts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.1.1/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>Research Directorate</title>
+</head>
+
+<body>
+    <section class="modal-container" id="modal_container">
+        <div class="modal">
+            <img src="/static/images/D9.png" class="img1">
+            <h1>Welcome to Our Smart Garlic Germination Endeavor!</h1>
+            <div class="divider"></div>
+            <p>Join us in exploring the innovative world of IoT-based solutions for optimizing garlic germination in a controlled environment. </p>
+            <button id="btn-box">Next</button>
+            <img src="/static/images/D11.png" class="img2">
+        </div>
+    </section>
+    
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+
+            <div class="Logo">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2 style="color: #12612b;">G0<span class="danger">Nursery</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+
+                <div class="sidebar">
+                    <a href="admin_dashboard" class="active">
+                        <span class="material-icons-sharp">monitor</span>
+                        <h3>Dashboard</h3>
+                    </a>                                               
+                    <a href="admin_control">
+                        <span class="material-icons-sharp">settings_remote</span>
+                        <h3>Control</h3>
+                    </a>                
+                    <a href="admin_users" >
+                        <span class="material-symbols-outlined">
+                            manage_accounts
+                            </span>
+                        <h3>User</h3>
+                    </a>
+                    <a href="settings">
+                        <span class="material-symbols-outlined">
+                            settings
+                            </span>
+                        <h3>Settings</h3>
+                    </a>
+                    <a href="main_login" onclick="confirmLogout()">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </a>
+                </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+
+    
+        <main>
+            <div class="header">
+                <h2> Monitoring Panel </h2>
+            </div>
+            <button id="howToUseBtn" onclick="showInstructions()">How to Use <i class='bx bx-question-mark'></i>
+            </button>
+            <!-- Add a modal dialog -->
+            <div id="how" class="how">
+                <div class="how-content">
+                    <i class='bx bx-x-circle iconss' id="closehow"></i>
+
+                    <p>Welcome to the Monitoring Panel! Here's how to use it:</p>
+            <ol>
+                <li class="left-align">Choose a date from the calendar.</li>
+                <li class="left-align">View the temperature and humidity readings for that date.</li>
+                <li class="left-align">Explore the light intensity data for each rack.</li>
+                <li class="left-align">Use the sidebar to navigate to different sections.</li>
+                <li class="left-align">Check your reminders for any scheduled tasks.</li>
+            </ol>
+                </div>                  
+            </div>
+            <!-- Analyses -->
+            <div class="analyse">
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Temperature </h3>
+                            <span id="current-temperature"> °C</span>
+                        </div>
+                        <div>
+                            <input type="text" id="start-date-selector" placeholder="Select Date">
+                            <canvas id="temperature-chart" width="600" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Humidity</h3>
+                            <span id="current-humidity"> %</span>
+                        </div>
+                        <div>
+                            <input type="text" id="humidity-start-date-selector" placeholder="Select Date">
+                        <canvas id="humidity-chart" width="600" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack 1</h3>
+                            <span id="intensity-display-1"> lm</span>
+                        </div>
+                        <div>
+                            <input type="text" id="lumens1-start-date-selector" placeholder="Select Date">
+                            <canvas id="lumens1-chart" width="600" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack 2</h3>
+                            <span id="intensity-display-2"> lm</span>
+                        </div>
+                        <div>
+                            <input type="text" id="lumens2-start-date-selector" placeholder="Select Date">
+                            <canvas id="lumens2-chart" width="600" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="one">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack 3</h3>
+                            <span id="intensity-display-3"> lm</span>
+                            <div>
+                                <input type="text" id="lumens3-start-date-selector" placeholder="Select Date">
+                            <canvas id="lumens3-chart" width="600" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="one">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack 4</h3>
+                            <span id="intensity-display-4"> lm</span>
+                            <div>
+                                <input type="text" id="lumens4-start-date-selector" placeholder="Select Date">
+                                <canvas id="lumens4-chart" width="600" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>Reza</b></p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="../static/images/profile-1.jpg">
+                    </div>
+                </div>
+
+            </div>
+            <!-- End of Nav -->
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="../static/images/LOGO-MMSU.webp">
+                    <h2>Research Directorate</h2>
+                    <p>MMSU Garlic Research Center and </p>
+                    <p>Food Laboratory</p>
+                </div>
+            </div>
+
+            <div class="reminders">
+                <div class="header">
+                    <h2>Reminders</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+
+
+                <div class="activeAlarms">
+                    {% for schedule in schedules %}
+                    <div class="notification">
+                        <div class="content">
+                            <div class="info">
+                                <h3 class="alarmhead">{{ schedule.start_date }} - {{ schedule.end_date }}</h3> <!-- Displaying date range -->
+                                <p>
+                                    Time On: {{ schedule.time_on_start }} - {{ schedule.time_on_end }}
+                                </p>
+                                <p>
+                                    Time Off: {{ schedule.time_off_start }} - {{ schedule.time_off_end }}
+                                </p>
+                            </div>
+                            <span class="Dbutton">
+                                <button class="deleteButton" onclick="confirmDeleteAllSchedules()">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </span>                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    <script src="../static/javascripts/charts/front.js"></script> 
+    <script src="../static/javascripts/charts/FEED.js"></script>
+    <script src="../static/javascripts/dashboard/logout.js"></script>
+    <script src="../static/javascripts/dashboard/index.js"></script>
+    <script src="../static/javascripts/dashboard/auth.js"></script>
+    <script src="../static/javascripts/dashboard/publish_sensor_data.js"></script>
+    <script src="{{ url_for('static', filename='javascripts/dashboard/publish_sensor_data.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/charts/tempcharts.js') }}"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        var ctx = document.getElementById('humidity-chart').getContext('2d');
+        var humidityChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Humidity (%)',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                    }
+                }
+            }
+        });
+    
+        var startDateSelector = flatpickr('#humidity-start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeHumidityData(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch humidity data in real-time
+                fetchRealtimeHumidityData(selectedDate);
+            } else {
+                // Fetch humidity data for the selected date
+                fetchHumidityData(selectedDate);
+            }
+        });
+    
+        function fetchHumidityData(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch humidity data for the selected date
+            fetch('/get_realtime_humidity_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    humidityChart.data.labels = [];
+                    humidityChart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.humidity_data.forEach(item => {
+                        humidityChart.data.labels.push(item.time);
+                        humidityChart.data.datasets[0].data.push(item.humidity);
+                    });
+    
+                    humidityChart.update();
+                });
+        }
+    
+        function fetchRealtimeHumidityData(selectedDate) {
+            // Fetch real-time humidity data for the selected date
+            fetch('/get_realtime_humidity_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    humidityChart.data.labels = [];
+                    humidityChart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.humidity_data.forEach(item => {
+                        humidityChart.data.labels.push(item.time);
+                        humidityChart.data.datasets[0].data.push(item.humidity);
+                    });
+    
+                    humidityChart.update();
+                });
+        }
+    </script>    
+    <script>
+        var ctx = document.getElementById('lumens1-chart').getContext('2d');
+        var lumens1Chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Lumens1',
+                    data: [],
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                    }
+                }
+            }
+        });
+    
+        var startDateSelector = flatpickr('#lumens1-start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens1Data(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch lumens1 data in real-time
+                fetchRealtimeLumens1Data(selectedDate);
+            } else {
+                // Fetch lumens1 data for the selected date
+                fetchLumens1Data(selectedDate);
+            }
+        });
+    
+        function fetchLumens1Data(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch lumens1 data for the selected date
+            fetch('/get_realtime_lumens1_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens1Chart.data.labels = [];
+                    lumens1Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.lumens1_data.forEach(item => {
+                        lumens1Chart.data.labels.push(item.time);
+                        lumens1Chart.data.datasets[0].data.push(item.lumens1);
+                    });
+    
+                    lumens1Chart.update();
+                });
+        }
+    
+        function fetchRealtimeLumens1Data(selectedDate) {
+            // Fetch real-time lumens1 data for the selected date
+            fetch('/get_realtime_lumens1_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens1Chart.data.labels = [];
+                    lumens1Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.lumens1_data.forEach(item => {
+                        lumens1Chart.data.labels.push(item.time);
+                        lumens1Chart.data.datasets[0].data.push(item.lumens1);
+                    });
+    
+                    lumens1Chart.update();
+                });
+        }
+    </script>
+    <script>
+        var ctx = document.getElementById('lumens2-chart').getContext('2d');
+        var lumens2Chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Lumens2',
+                    data: [],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                    }
+                }
+            }
+        });
+    
+        var startDateSelector = flatpickr('#lumens2-start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens2Data(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch lumens2 data in real-time
+                fetchRealtimeLumens2Data(selectedDate);
+            } else {
+                // Fetch lumens2 data for the selected date
+                fetchLumens2Data(selectedDate);
+            }
+        });
+    
+        function fetchLumens2Data(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch lumens2 data for the selected date
+            fetch('/get_realtime_lumens2_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens2Chart.data.labels = [];
+                    lumens2Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.lumens2_data.forEach(item => {
+                        lumens2Chart.data.labels.push(item.time);
+                        lumens2Chart.data.datasets[0].data.push(item.lumens2);
+                    });
+    
+                    lumens2Chart.update();
+                });
+        }
+    
+        function fetchRealtimeLumens2Data(selectedDate) {
+            // Fetch real-time lumens2 data for the selected date
+            fetch('/get_realtime_lumens2_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens2Chart.data.labels = [];
+                    lumens2Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.lumens2_data.forEach(item => {
+                        lumens2Chart.data.labels.push(item.time);
+                        lumens2Chart.data.datasets[0].data.push(item.lumens2);
+                    });
+    
+                    lumens2Chart.update();
+                });
+        }
+    </script>    
+    <script>
+        var ctx = document.getElementById('lumens3-chart').getContext('2d');
+        var lumens3Chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Lumens3',
+                    data: [],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                    }
+                }
+            }
+        });
+    
+        var startDateSelector = flatpickr('#lumens3-start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens3Data(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch lumens3 data in real-time
+                fetchRealtimeLumens3Data(selectedDate);
+            } else {
+                // Fetch lumens3 data for the selected date
+                fetchLumens3Data(selectedDate);
+            }
+        });
+    
+        function fetchLumens3Data(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch lumens3 data for the selected date
+            fetch('/get_realtime_lumens3_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens3Chart.data.labels = [];
+                    lumens3Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.lumens3_data.forEach(item => {
+                        lumens3Chart.data.labels.push(item.time);
+                        lumens3Chart.data.datasets[0].data.push(item.lumens3);
+                    });
+    
+                    lumens3Chart.update();
+                });
+        }
+    
+        function fetchRealtimeLumens3Data(selectedDate) {
+            // Fetch real-time lumens3 data for the selected date
+            fetch('/get_realtime_lumens3_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens3Chart.data.labels = [];
+                    lumens3Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.lumens3_data.forEach(item => {
+                        lumens3Chart.data.labels.push(item.time);
+                        lumens3Chart.data.datasets[0].data.push(item.lumens3);
+                    });
+    
+                    lumens3Chart.update();
+                });
+        }
+    </script>    
+    <script>
+        var ctx = document.getElementById('lumens4-chart').getContext('2d');
+        var lumens4Chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Lumens4',
+                    data: [],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                    }
+                }
+            }
+        });
+    
+        var startDateSelector = flatpickr('#lumens4-start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeLumens4Data(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch lumens4 data in real-time
+                fetchRealtimeLumens4Data(selectedDate);
+            } else {
+                // Fetch lumens4 data for the selected date
+                fetchLumens4Data(selectedDate);
+            }
+        });
+    
+        function fetchLumens4Data(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch lumens4 data for the selected date
+            fetch('/get_realtime_lumens4_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens4Chart.data.labels = [];
+                    lumens4Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.lumens4_data.forEach(item => {
+                        lumens4Chart.data.labels.push(item.time);
+                        lumens4Chart.data.datasets[0].data.push(item.lumens4);
+                    });
+    
+                    lumens4Chart.update();
+                });
+        }
+    
+        function fetchRealtimeLumens4Data(selectedDate) {
+            // Fetch real-time lumens4 data for the selected date
+            fetch('/get_realtime_lumens4_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    lumens4Chart.data.labels = [];
+                    lumens4Chart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.lumens4_data.forEach(item => {
+                        lumens4Chart.data.labels.push(item.time);
+                        lumens4Chart.data.datasets[0].data.push(item.lumens4);
+                    });
+    
+                    lumens4Chart.update();
+                });
+        }
+    </script>    
+    <script>
+        var ctx = document.getElementById('temperature-chart').getContext('2d');
+        var temperatureChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 24, // Display maximum of 24 ticks on x-axis (1 per hour)
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                    }
+                }
+            }
+        });
+    
+        var startDateSelector = flatpickr('#start-date-selector');
+    
+        // Set the value of the date selector to today's date
+        var today = new Date().toISOString().split('T')[0];
+        startDateSelector.setDate(today);
+    
+        // Trigger chart display function
+        fetchRealtimeTemperatureData(new Date(today));
+    
+        startDateSelector.set('onChange', function(selectedDates, dateStr, instance) {
+            var selectedDate = new Date(selectedDates[0]);
+            var today = new Date();
+    
+            // Check if the selected date is today's date
+            if (selectedDate.toDateString() === today.toDateString()) {
+                // Fetch temperature data in real-time
+                fetchRealtimeTemperatureData(selectedDate);
+            } else {
+                // Fetch temperature data for the selected date
+                fetchTemperatureData(selectedDate);
+            }
+        });
+    
+        function fetchTemperatureData(selectedDate) {
+            var startDate = selectedDate.toISOString().split('T')[0];
+    
+            // Fetch temperature data for the selected date
+            fetch('/get_realtime_temperature_data?start_date=' + startDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    temperatureChart.data.labels = [];
+                    temperatureChart.data.datasets[0].data = [];
+    
+                    // Update chart with the received data
+                    data.temperature_data.forEach(item => {
+                        temperatureChart.data.labels.push(item.time);
+                        temperatureChart.data.datasets[0].data.push(item.temperature);
+                    });
+    
+                    temperatureChart.update();
+                });
+        }
+    
+        function fetchRealtimeTemperatureData(selectedDate) {
+            // Fetch real-time temperature data for the selected date
+            fetch('/get_realtime_temperature_data?start_date=' + selectedDate.toISOString().split('T')[0])
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    temperatureChart.data.labels = [];
+                    temperatureChart.data.datasets[0].data = [];
+    
+                    // Update chart with the received real-time data
+                    data.temperature_data.forEach(item => {
+                        temperatureChart.data.labels.push(item.time);
+                        temperatureChart.data.datasets[0].data.push(item.temperature);
+                    });
+    
+                    temperatureChart.update();
+                });
+        }
+    </script>   
+    <script>
+        // JavaScript to show and hide the modal dialog
+        var modal = document.getElementById("how");
+        var btn = document.getElementById("howToUseBtn");
+        var span = document.getElementsByClassName("close")[0];
+        var closeModalBtn = document.getElementById("closehow");
+    
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+    
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    
+        // When the user clicks on the close icon, close the modal
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+    </script>
+    
+</body>
+
+</html>

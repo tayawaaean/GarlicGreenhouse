@@ -1,0 +1,160 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/styles/monitoring/monitoring.css">
+    <link rel="stylesheet" href="../static/styles/monitoring/confirm.css">
+    <link rel="stylesheet" href="../static/styles/monitoring/ac.css">
+    <style>
+        #userDisplay1,  
+        #userDisplay2,
+        #userDisplay3,
+        #userDisplay4,
+        #userDisplayac {
+            font-size: 15px; /* Adjust the value as needed */
+        }
+    </style>
+    <title>Research&Development</title>
+</head>
+
+<body>
+
+    <div class="container">
+    
+        <main>
+            <div class="header">
+                <h2> MONITORING </h2>
+            </div>
+            <!-- Analyses -->
+            <div class="analyse">
+                <div class="sales">
+                    <div class="status">
+                
+                        <div class="info">
+                            <h3>AC Control </h3>
+                        </div>
+                        <div class="temperature-control">
+            
+                            <button onclick="updateTemperature('down')">-</button>
+                            <input type="number" step="1" id="temperatureInput" min="17" max="30" value=" " readonly>
+                            <button onclick="updateTemperature('up')">+</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="one">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack A</h3>
+                        </div>
+                        
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer1">
+                            <button class="toggleOn" onclick="toggleOn(1)">ON</button>
+                            <button class="toggleOff" onclick="toggleOff(1)">OFF</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="two">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack B</h3>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer2">
+                            <button class="toggleOn"onclick="toggleOn(2)">ON</button>
+                            <button class="toggleOff"onclick="toggleOff(2)">OFF</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="three">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack C</h3>
+                        </div>
+                        
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer3">
+                            <button class="toggleOn" onclick="toggleOn(3)">ON</button>
+                            <button class="toggleOff"onclick="toggleOff(3)">OFF</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="four">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Rack D</h3>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="toggle-container" id="toggleContainer4">
+                            <button class="toggleOn" onclick="toggleOn(4)">ON</button>
+                            <button class="toggleOff" onclick="toggleOff(4)">OFF</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="visits">
+                    <div class="status">
+                        <div class="info">
+                            <h3>SENSOR DATA</h3>
+                            <div class="info">
+                                <h3>Temperature:  <span id="current-temperature">°C</span></h3>
+                            </div>
+                            <div class="info">
+                                <h3>Humidity:  <span id="current-humidity">%</span></h3>
+                            </div>
+                            <div class="info">
+                                <h3>Rack 1:  <span id="intensity-display-11">lm</span></h3>
+                            </div>
+                            <div class="info">
+                                <h3>Rack 2:  <span id="intensity-display-2">lm</span></h3>
+                            </div>
+                            <div class="info">
+                                <h3>Rack 3:  <span id="intensity-display-3">lm</span></h3>
+                            </div>
+                            <div class="info">
+                                <h3>Rack 4:  <span id="intensity-display-4">lm</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </main>
+
+      
+
+        </div>
+        
+    <script src="../static/javascripts/monitoring/ac_send.js"></script> 
+
+    <script src="../static/javascripts/monitoring/confirm.js"></script>
+    <script src="../static/javascripts/monitoring/toggle.js"></script>
+    <script src="../static/javascripts/monitoring/publish_sensor_data.js"></script>
+   
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+</body>
+
+</html>

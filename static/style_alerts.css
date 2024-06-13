@@ -78,6 +78,7 @@ h1{
 h2{
     font-weight: 600;
     font-size: 1.4rem;
+
 }
 
 h3{
@@ -245,13 +246,6 @@ main .alert h2{
     color: #12612b;
 }
 
-main .alert p{
-    margin-top: 0;
-    font-family: "Poppins", sans-serif;
-    font-size: 17px;
-    font-weight: bold;
-    color: #00000043;
-}
 
 main .analyse{
     margin-top: 0%;
@@ -1120,6 +1114,87 @@ input[type="date"] {
     box-sizing: border-box;
 }
 
+#howToUseBtn {
+    background-color: transparent; /* Light gray */
+    border: none;
+    color: #12612b;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    font-family: Simplifica;
+    font-weight: bold;
+    padding-bottom: 20px;
+  }
+
+  #howToUseBtn i {
+    margin-left: 5px;
+  }
+
+  #howToUseBtn:hover {
+    background-color: #e0e0e0; /* Lighter gray */
+  }
+
+  #howToUseBtn:hover i {
+    transform: scale(1.1);
+  }
+  #howToUseBtn .bx-question-mark {
+    font-size: 17px; /* Increase the icon size */
+    border: 1px solid #666; /* Gray border */
+    border-radius: 50%; /* Rounded border */
+    padding: 5px; /* Padding to ensure space around the icon */
+  }
+
+/* CSS for the modal dialog */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 15px;
+    font-family: Simplifica;
+    font-size: 20px;
+    padding-left: 40px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .iconss {
+    float: right; /* Float the icon to the right */
+        margin-left: 10px; /* Add some space between the icon and the text */
+        color: #888;
+        cursor: pointer;
+}
+  
 @media screen and (max-width: 1200px) {
     .container{
         width: 95%;
@@ -1228,16 +1303,6 @@ input[type="date"] {
         margin-top: 8rem;
         padding: 0 1rem;
     }
-
-    main .alert p{
-        margin-top: 0;
-        font-family: "Poppins", sans-serif;
-        font-size: 17px;
-        font-weight: bold;
-        color: #00000043;
-        margin-left: -10%;
-    }
-    
 
     main .new-users .user-list .user{
         flex-basis: 35%;

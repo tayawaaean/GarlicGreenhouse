@@ -26,46 +26,23 @@ body::before {
   content: "";
   position: absolute;
   top: 0;
-  left: -15%;
-  width: 120%;
-  height: 120%;
+  left: -15%; 
+  width: 160%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5); 
 }
 
-
 .container {
   position: relative;
-  top:7%;
-  left:0%;
+  top: 8%;
+  left: 0%;
   max-width: 450px;
-  padding: 50px;
+  padding: 35px;
   border-radius: 8px;
   background: linear-gradient(135deg, rgba(29, 154, 133, 0.6), rgba(30, 95, 92, 0.6));
   border: 2px solid #ffffff;
   text-align: center;
-  margin-left: -70px; 
-}
-
-  .container .logo2{
-    position: absolute;
-    left: 77%;
-    transform: translateX(-100%);
-    width: 170px;
-    height: auto;
-  }
-  
-  
-  .container .logo2 {
-    top: -50%;
-  }
-  
-
-@media screen and (max-width: 768px) {
-  .container {
-    left: 50%;
-    margin-left: 0;
-    width: 80%;
-  }
+  margin: 0 auto; /* Center the container */
 }
 
 .container header {
@@ -96,8 +73,8 @@ form .input-field {
   width: 100%;
   outline: none;
   border: none;
-  border-radius: 8px; 
-  padding: 0 80px;
+  border-radius: 8px;
+  padding: 0 15px;
   background: transparent;
 }
 
@@ -120,7 +97,7 @@ form .input-field {
   display: flex;
   align-items: center;
   margin-top: 6px;
-  color: #2bd925;
+  color: #d93025;
   font-size: 13px;
   display: none;
 }
@@ -155,6 +132,7 @@ form .input-field {
   background-color: #1D9A85ff;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%; /* Make the button full-width */
 }
 
 .button input:hover {
@@ -179,21 +157,21 @@ form .input-field {
 
 .social-header {
   text-align: center;
-  font-size: 14px; 
-  color: #ffffff; 
+  font-size: 14px;
+  color: #ffffff;
   margin-top: px;
 }
 
 .sliding-container {
   display: flex;
-  width: 100%;
-  justify-content: center; 
-  align-items: center; 
-  padding: 100px; 
+  left:12%;
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
   position: relative;
-  margin-left: -350px;
-}
+  margin: 0%;
 
+}
 
 .sliding-container header {
   font-size: 29px;
@@ -211,40 +189,36 @@ form .input-field {
 }
 
 .sliding-container .button input {
-  height: 55px; 
+  height: 55px;
   width: 100%;
-  border-radius: 10px; 
-  padding: 0 90px;
+  border-radius: 10px;
+  padding: 0 15px; /* Adjust padding as needed */
 }
 
-.logo {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width:150px;
-  height: auto;
-}
 
 .logo2 {
   position: absolute;
-  top: 13%;
-  left: 50%;
+  top: 22%;
+  left: 52%;
   transform: translate(-50%, -50%);
   width:200px;
   height: auto;
   margin-left: -35px;
 }
 
-.logo3 {
+.container .logo2 {
   position: absolute;
-  top: 19%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width:200px;
+  left: 60%;
+  transform: translateX(-50%);
+  width: 150px; /* Adjust width as needed */
   height: auto;
-  margin-left: -35px;
 }
+
+
+.container .logo2 {
+  top: -45%;
+}
+
 
 @media screen and (max-width: 768px) {
   body::before {
@@ -259,7 +233,7 @@ form .input-field {
 
   .container {
     position: relative;
-    left: -1%;
+    left: 0%;
     max-width: 450px;
     padding: 35px;
     border-radius: 8px;
@@ -420,6 +394,16 @@ form .input-field {
   }
   
   
+  .logo2 {
+    position: absolute;
+    top: 20%;
+    left: 58%;
+    transform: translate(-50%, -50%);
+    width:200px;
+    height: auto;
+    margin-left: -35px;
+  }
+
   .container .logo2 {
     position: absolute;
     left: 60%;

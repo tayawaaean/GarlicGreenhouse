@@ -89,14 +89,25 @@ client = mqtt.Client()
 manila_timezone = pytz.timezone('Asia/Manila')
 
 
+import base64
+
 def on_message(client, userdata, message):
     topic = message.topic
     payload = message.payload.decode("utf-8")
 
     try:
+        # Attempt to convert payload to float
         payload = float(payload)
     except ValueError:
-        payload = None
+        # If conversion fails, payload might be base64 encoded
+        try:
+            # Attempt to decode payload as base64
+            decoded_payload = base64.b64decode(payload).decode("utf-8")
+            # Convert decoded payload to float
+            payload = float(decoded_payload)
+        except Exception as e:
+            print("Error decoding payload:", str(e))
+            payload = None
 
     with data_lock:
         if topic == temperature_topic:
@@ -258,117 +269,278 @@ def publish_mqtt():
 @app.route('/get_realtime_temperature_data', methods=['GET'])
 def get_realtime_temperature_data():
     start_date = request.args.get('start_date')
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    selected_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # Get the end of the selected date
-    end_datetime = start_datetime + timedelta(days=1)
+    # Calculate the start and end dates for one day ahead of the selected date
+    next_day_start = selected_datetime + timedelta(days=1)
+    next_day_end = next_day_start + timedelta(days=1)
 
-    # Query MongoDB to get temperature data for the selected date
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
-    })
+    # Define the pipeline for aggregation
+    pipeline = [
+        {
+            '$match': {
+                'date': {'$gte': next_day_start.strftime('%Y-%m-%d'), '$lt': next_day_end.strftime('%Y-%m-%d')}
+            }
+        },
+        {
+            '$addFields': {
+                'time_datetime': {
+                    '$toDate': {
+                        '$concat': ['$date', ' ', '$time']
+                    }
+                }
+            }
+        },
+        {
+            '$group': {
+                '_id': {
+                    '$dateToString': {'format': '%Y-%m-%d %H:00:00', 'date': '$time_datetime'}
+                },
+                'temperature': {'$avg': '$temperature'}
+            }
+        },
+        {
+            '$sort': {'_id': 1}
+        }
+    ]
 
-    temperature_data = []
-    for item in data:
-        temperature_data.append({'temperature': item['temperature'], 'time': item['time']})
+    # Execute the aggregation pipeline
+    temperature_data = list(sensor_data_collection.aggregate(pipeline))
 
-    return jsonify({'temperature_data': temperature_data})
+    # Format the result
+    formatted_data = [{'temperature': data['temperature'], 'time': data['_id']} for data in temperature_data]
+
+    return jsonify({'temperature_data': formatted_data})
 
 @app.route('/get_realtime_humidity_data', methods=['GET'])
 def get_realtime_humidity_data():
     start_date = request.args.get('start_date')
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    selected_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # Get the end of the selected date
-    end_datetime = start_datetime + timedelta(days=1)
+    # Calculate the start and end dates for one day ahead of the selected date
+    next_day_start = selected_datetime + timedelta(days=1)
+    next_day_end = next_day_start + timedelta(days=1)
 
-    # Query MongoDB to get humidity data for the selected date
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
-    })
+    # Define the pipeline for aggregation
+    pipeline = [
+        {
+            '$match': {
+                'date': {'$gte': next_day_start.strftime('%Y-%m-%d'), '$lt': next_day_end.strftime('%Y-%m-%d')}
+            }
+        },
+        {
+            '$addFields': {
+                'time_datetime': {
+                    '$toDate': {
+                        '$concat': ['$date', ' ', '$time']
+                    }
+                }
+            }
+        },
+        {
+            '$group': {
+                '_id': {
+                    '$dateToString': {'format': '%Y-%m-%d %H:00:00', 'date': '$time_datetime'}
+                },
+                'humidity': {'$avg': '$humidity'}
+            }
+        },
+        {
+            '$sort': {'_id': 1}
+        }
+    ]
 
-    humidity_data = []
-    for item in data:
-        humidity_data.append({'humidity': item['humidity'], 'time': item['time']})
+    # Execute the aggregation pipeline
+    humidity_data = list(sensor_data_collection.aggregate(pipeline))
 
-    return jsonify({'humidity_data': humidity_data})
+    # Format the result
+    formatted_data = [{'humidity': data['humidity'], 'time': data['_id']} for data in humidity_data]
 
+    return jsonify({'humidity_data': formatted_data})
 
 @app.route('/get_realtime_lumens1_data', methods=['GET'])
 def get_realtime_lumens1_data():
     start_date = request.args.get('start_date')
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    selected_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # Get the end of the selected date
-    end_datetime = start_datetime + timedelta(days=1)
+    # Calculate the start and end dates for one day ahead of the selected date
+    next_day_start = selected_datetime + timedelta(days=1)
+    next_day_end = next_day_start + timedelta(days=1)
 
-    # Query MongoDB to get lumens1 data for the selected date
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
-    })
+    # Define the pipeline for aggregation
+    pipeline = [
+        {
+            '$match': {
+                'date': {'$gte': next_day_start.strftime('%Y-%m-%d'), '$lt': next_day_end.strftime('%Y-%m-%d')}
+            }
+        },
+        {
+            '$addFields': {
+                'time_datetime': {
+                    '$toDate': {
+                        '$concat': ['$date', ' ', '$time']
+                    }
+                }
+            }
+        },
+        {
+            '$group': {
+                '_id': {
+                    '$dateToString': {'format': '%Y-%m-%d %H:00:00', 'date': '$time_datetime'}
+                },
+                'lumens1': {'$avg': '$lumens1'}
+            }
+        },
+        {
+            '$sort': {'_id': 1}
+        }
+    ]
 
-    lumens1_data = []
-    for item in data:
-        lumens1_data.append({'lumens1': item['lumens1'], 'time': item['time']})
+    # Execute the aggregation pipeline
+    lumens1_data = list(sensor_data_collection.aggregate(pipeline))
 
-    return jsonify({'lumens1_data': lumens1_data})
+    # Format the result
+    formatted_data = [{'lumens1': data['lumens1'], 'time': data['_id']} for data in lumens1_data]
+
+    return jsonify({'lumens1_data': formatted_data})
 
 @app.route('/get_realtime_lumens2_data', methods=['GET'])
 def get_realtime_lumens2_data():
     start_date = request.args.get('start_date')
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    selected_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # Get the end of the selected date
-    end_datetime = start_datetime + timedelta(days=1)
+    # Calculate the start and end dates for one day ahead of the selected date
+    next_day_start = selected_datetime + timedelta(days=1)
+    next_day_end = next_day_start + timedelta(days=1)
 
-    # Query MongoDB to get lumens2 data for the selected date
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
-    })
+    # Define the pipeline for aggregation
+    pipeline = [
+        {
+            '$match': {
+                'date': {'$gte': next_day_start.strftime('%Y-%m-%d'), '$lt': next_day_end.strftime('%Y-%m-%d')}
+            }
+        },
+        {
+            '$addFields': {
+                'time_datetime': {
+                    '$toDate': {
+                        '$concat': ['$date', ' ', '$time']
+                    }
+                }
+            }
+        },
+        {
+            '$group': {
+                '_id': {
+                    '$dateToString': {'format': '%Y-%m-%d %H:00:00', 'date': '$time_datetime'}
+                },
+                'lumens2': {'$avg': '$lumens2'}
+            }
+        },
+        {
+            '$sort': {'_id': 1}
+        }
+    ]
 
-    lumens2_data = []
-    for item in data:
-        lumens2_data.append({'lumens2': item['lumens2'], 'time': item['time']})
+    # Execute the aggregation pipeline
+    lumens2_data = list(sensor_data_collection.aggregate(pipeline))
 
-    return jsonify({'lumens2_data': lumens2_data})
+    # Format the result
+    formatted_data = [{'lumens2': data['lumens2'], 'time': data['_id']} for data in lumens2_data]
+
+    return jsonify({'lumens2_data': formatted_data})
 
 @app.route('/get_realtime_lumens3_data', methods=['GET'])
 def get_realtime_lumens3_data():
     start_date = request.args.get('start_date')
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    selected_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # Get the end of the selected date
-    end_datetime = start_datetime + timedelta(days=1)
+    # Calculate the start and end dates for one day ahead of the selected date
+    next_day_start = selected_datetime + timedelta(days=1)
+    next_day_end = next_day_start + timedelta(days=1)
 
-    # Query MongoDB to get lumens3 data for the selected date
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
-    })
+    # Define the pipeline for aggregation
+    pipeline = [
+        {
+            '$match': {
+                'date': {'$gte': next_day_start.strftime('%Y-%m-%d'), '$lt': next_day_end.strftime('%Y-%m-%d')}
+            }
+        },
+        {
+            '$addFields': {
+                'time_datetime': {
+                    '$toDate': {
+                        '$concat': ['$date', ' ', '$time']
+                    }
+                }
+            }
+        },
+        {
+            '$group': {
+                '_id': {
+                    '$dateToString': {'format': '%Y-%m-%d %H:00:00', 'date': '$time_datetime'}
+                },
+                'lumens3': {'$avg': '$lumens3'}
+            }
+        },
+        {
+            '$sort': {'_id': 1}
+        }
+    ]
 
-    lumens3_data = []
-    for item in data:
-        lumens3_data.append({'lumens3': item['lumens3'], 'time': item['time']})
+    # Execute the aggregation pipeline
+    lumens3_data = list(sensor_data_collection.aggregate(pipeline))
 
-    return jsonify({'lumens3_data': lumens3_data})
+    # Format the result
+    formatted_data = [{'lumens3': data['lumens3'], 'time': data['_id']} for data in lumens3_data]
+
+    return jsonify({'lumens3_data': formatted_data})
 
 @app.route('/get_realtime_lumens4_data', methods=['GET'])
 def get_realtime_lumens4_data():
     start_date = request.args.get('start_date')
-    start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    selected_datetime = datetime.strptime(start_date, '%Y-%m-%d')
 
-    # Get the end of the selected date
-    end_datetime = start_datetime + timedelta(days=1)
+    # Calculate the start and end dates for one day ahead of the selected date
+    next_day_start = selected_datetime + timedelta(days=1)
+    next_day_end = next_day_start + timedelta(days=1)
 
-    # Query MongoDB to get lumens4 data for the selected date
-    data = sensor_data_collection.find({
-        'date': {'$gte': start_datetime.strftime('%Y-%m-%d'), '$lt': end_datetime.strftime('%Y-%m-%d')}
-    })
+    # Define the pipeline for aggregation
+    pipeline = [
+        {
+            '$match': {
+                'date': {'$gte': next_day_start.strftime('%Y-%m-%d'), '$lt': next_day_end.strftime('%Y-%m-%d')}
+            }
+        },
+        {
+            '$addFields': {
+                'time_datetime': {
+                    '$toDate': {
+                        '$concat': ['$date', ' ', '$time']
+                    }
+                }
+            }
+        },
+        {
+            '$group': {
+                '_id': {
+                    '$dateToString': {'format': '%Y-%m-%d %H:00:00', 'date': '$time_datetime'}
+                },
+                'lumens4': {'$avg': '$lumens4'}
+            }
+        },
+        {
+            '$sort': {'_id': 1}
+        }
+    ]
 
-    lumens4_data = []
-    for item in data:
-        lumens4_data.append({'lumens4': item['lumens4'], 'time': item['time']})
+    # Execute the aggregation pipeline
+    lumens4_data = list(sensor_data_collection.aggregate(pipeline))
 
-    return jsonify({'lumens4_data': lumens4_data})
+    # Format the result
+    formatted_data = [{'lumens4': data['lumens4'], 'time': data['_id']} for data in lumens4_data]
+
+    return jsonify({'lumens4_data': formatted_data})
 
 @app.route('/logout')
 def logout():
@@ -377,18 +549,50 @@ def logout():
 @app.route('/about')
 @login_required
 def about():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is not an admin
+    if user.get('user_type') == 'Admin':
+        return "Unauthorized access. Users only."
+
     return render_template('about.html', sensor_data=sensor_data, num_relays=num_relays)
-    pass
+
 
 @app.route('/alerts')
 @login_required
 def alerts():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is not an admin
+    if user.get('user_type') == 'Admin':
+        return "Unauthorized access. Users only."
+
     # Fetch schedules from MongoDB collection
     schedules = list(schedule_collection.find({}))
 
     # Pass schedules to the template for rendering
     return render_template('alerts.html', schedules=schedules)
-    pass
+
 
 @app.route('/schedule_count')
 def get_schedule_count():
@@ -430,6 +634,8 @@ def save_alarm():
     end_date = data.get('end_date')
     time_on = data.get('time_on')
     time_off = data.get('time_off')
+    start_temperature = data.get('start_temperature')  # Extracting start temperature from JSON
+    end_temperature = data.get('end_temperature')  # Extracting end temperature from JSON
     password = data.get('password')  # Extracting password from JSON
 
     # Encrypting password using bcrypt
@@ -459,6 +665,8 @@ def save_alarm():
         'end_date': end_date,
         'time_on': time_on,
         'time_off': time_off,
+        'start_temperature': start_temperature,  # Include start temperature in the document
+        'end_temperature': end_temperature,  # Include end temperature in the document
         'password': hashed_password,  # Include hashed password in the document
         'time_on_start': time_on_start,
         'time_on_end': time_on_end,
@@ -492,13 +700,16 @@ def register():
 
         # Hash the password before storing it in the database
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        
+        profpic ="Prof_placeH.webp"
 
         # Store the user data in MongoDB
         user_data = {
             "name": name,
             "email": email,
             "password": hashed_password,
-            "registration_date": datetime.now()
+            "registration_date": datetime.now(),
+            "filename_web": profpic
         }
         mongodb_db.users.insert_one(user_data)
 
@@ -517,9 +728,17 @@ def get_invite_code():
 def users():
     # Assuming you have a MongoDB collection named 'users'
     user = mongodb_db.users.find_one({"email": session.get('email')})
-    filename = user.get('filename', 'Prof_placeH.webp')  # Get the filename from the user document, or use a default value
+    filename = user.get('filename_web', 'Prof_placeH.webp')  # Get the filename from the user document, or use a default value
+    schedules = list(schedule_collection.find({}))
+    users = users_collection.find_one({"email": session.get('email')})
     
-    return render_template('users.html', sensor_data=sensor_data, num_relays=num_relays, filename=filename)
+    return render_template('users.html', 
+                           sensor_data=sensor_data, 
+                           num_relays=num_relays,
+                           filename=filename,
+                           schedules=schedules,  
+                           current_temperature=current_temperature,
+                           users=users)
     pass
 
 @app.route('/upload', methods=['POST'])
@@ -543,7 +762,7 @@ def upload_file():
             # Save the filename in the database
             if 'email' in session:
                 email = session['email']
-                mongodb_db.users.update_one({"email": email}, {"$set": {"filename": filename}})
+                mongodb_db.users.update_one({"email": email}, {"$set": {"filename_web": filename}})
             
             return 'Image uploaded successfully'
         
@@ -671,45 +890,24 @@ def forgot_password():
 def front():
     return render_template('front.html')    
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        # If the request is made with JSON data
-        if request.is_json:
-            data = request.get_json()
-            email = data.get('email')
-            password = data.get('password')
-        else:
-            # If the request is made with form data (HTML form submission)
-            email = request.form.get('email')
-            password = request.form.get('password')
+    # Get email and password from request
+    email = request.json.get('email')
+    password = request.json.get('password')
 
-        # Check if email matches a user in the MongoDB collection
-        user = mongodb_db.users.find_one({"email": email})
+    # Find user by email in MongoDB
+    user = users_collection.find_one({'email': email})
 
-        if user and bcrypt.check_password_hash(user.get('password', ''), password):
-            # Store user ID, email, and name in the session
-            session['user_id'] = str(user.get('_id'))
-            session['email'] = email
-            session['name'] = user.get('name')
+    if user and bcrypt.check_password_hash(user.get('password', ''), password):
+        # Store user ID, email, and userType in the session
+        session['user_id'] = str(user.get('_id'))
+        session['email'] = email
+        session['user_type'] = user.get('user_type')
 
-            # Perform login logic if needed
-            if request.is_json:
-                return jsonify({'success': True})
-            else:
-                # Redirect to the index route on successful login
-                return redirect(url_for('index'))
-        else:
-            error_message = "Invalid email or password. Please try again."
-
-            if request.is_json:
-                return jsonify({'success': False, 'message': error_message})
-            else:
-                # Render the login template with the error message
-                return render_template('main_login', error_message=error_message)
-
-    # If it's a GET request, render the login template
-    return render_template('login.html')
+        return jsonify({'user_type': user.get('user_type')})
+    else:
+        return jsonify({'error': 'Invalid email or password'}), 401
 
 @app.route('/')
 def default():
@@ -931,44 +1129,264 @@ class Camera:
             _, jpeg = cv2.imencode('.jpg', image)
             return jpeg.tobytes()
 
-def generate_frames(camera):
-    while True:
-        frame = camera.get_frame()
-        if frame is None:
-            break
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+@app.route('/video_feed')
+def video_feed():
+    # Create a new camera instance for each client
+    camera = Camera()
+    
+    def generate_frames(camera):
+        while True:
+            frame = camera.get_frame()
+            if frame is None:
+                break
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    
+    return Response(generate_frames(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/feed')
 @login_required
 def feed():
-    return render_template('feed.html')
-    pass
-    
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
 
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is not an admin
+    if user.get('user_type') == 'Admin':
+        return "Unauthorized access. Users only."
+
+    return render_template('feed.html')
+
+@app.route('/monitoring')
+def monitoring():
+    return render_template('monitoring.html')
+
+@app.route('/admin_control')
+@login_required
+def admin_control():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is an admin
+    if user.get('user_type') != 'Admin':
+        return "Unauthorized access. Admins only."
+
+    return render_template('admin-control.html')
+    pass
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = mongodb_db.users.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Fetch schedule data from MongoDB and sort it
+    schedules = list(schedule_collection.find({}))
+
+    return render_template('admin_dashboard.html', 
+                           sensor_data=sensor_data, 
+                           num_relays=num_relays,
+                           schedules=schedules, 
+                           current_temperature=current_temperature)
+
+@app.route('/admin_index')
+def admin_index():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is an admin
+    if user.get('user_type') != 'Admin':
+        return "Unauthorized access. Admins only."
+
+    # Fetch schedule data from MongoDB and sort it
+    schedules = list(schedule_collection.find({}))
+
+    return render_template('admin_index.html', 
+                           sensor_data=sensor_data,  # Ensure these variables are defined or passed appropriately
+                           num_relays=num_relays,
+                           schedules=schedules, 
+                           current_temperature=current_temperature)
+
+
+@app.route('/admin_users')
+@login_required
+def admin_users():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is an admin
+    if user.get('user_type') != 'Admin':
+        return "Unauthorized access. Admins only."
+
+    # Retrieve all users
+    users = users_collection.find()
+    return render_template('admin-users.html', users=users)
+    pass
+
+@app.route('/edit_user', methods=['POST'])
+def edit_user():
+    user_id = request.form['userId']
+    name = request.form['name']
+    email = request.form['email']
+    position = request.form['position']
+    profile = request.form['profile']
+    
+    # Handle file upload if a new photo is provided
+    if 'image' in request.files:
+        image = request.files['image']
+        if image.filename != '':
+            image_path = os.path.join(app.root_path, 'static/profilepics', image.filename)
+            image.save(image_path)
+            profile = image.filename
+
+    users_collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$set": {
+            "name": name,
+            "email": email,
+            "user_type": position,
+            "filename_web": profile
+        }}
+    )
+    
+    return redirect(url_for('admin_users'))
+
+@app.route('/delete_user', methods=['POST'])
+def delete_user():
+    user_id = request.form['userId']
+    
+    # Assuming users_collection is your MongoDB collection
+    users_collection.delete_one({"_id": ObjectId(user_id)})
+    
+    # Redirect to the page where the user list is displayed after deletion
+    return redirect(url_for('admin_users'))
+
+@app.route('/settings')
+@login_required
+def settings():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is an admin
+    if user.get('user_type') != 'Admin':
+        return "Unauthorized access. Admins only."
+
+    return render_template('settings.html')
+
+
+from flask_bcrypt import check_password_hash
+
+@app.route('/delete_all_data', methods=['POST'])
+def delete_all_data():
+    # Get password and confirm password from the form
+    password = request.form['password']
+    confirm_password = request.form['confirm-password']
+
+    # Check if password and confirm password match
+    if password != confirm_password:
+        return jsonify({'success': False, 'message': 'Passwords do not match.'}), 400
+
+    # Verify user's password
+    user = users_collection.find_one({'email': session.get('email')})
+    if user and check_password_hash(user.get('password', ''), password):
+        # If password is correct, delete all data from sensor_data collection
+        sensor_data_collection.delete_many({})
+        return jsonify({'success': True, 'redirect': '/settings', 'message': 'All data deleted successfully.'}), 200
+    else:
+        return jsonify({'success': False, 'redirect': '/settings', 'message': 'Incorrect password.'}), 401
+
+    # Redirect to settings page after processing the request
+    return redirect(url_for('settings'))
 @app.route('/control')
 @login_required
 def control():
-    # Fetch user data
-    user = mongodb_db.users.find_one({"email": session.get('email')})
-    
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is authorized to access the control page
+    # Assuming both Admin and User can access this page
+    user_type = user.get('user_type')
+    if user_type not in ['Admin', 'User']:
+        return "Unauthorized access."
+
     # Fetch schedule data from MongoDB and sort it
     schedule_data = mongodb_db.schedule.find().sort([("monthYearSelected", 1), ("time_start", 1)])
     
     # Convert MongoDB cursor to a list of dictionaries
     schedule_list = [entry for entry in schedule_data]
     
+    # Fetch other required data (assuming these variables are defined somewhere in your application)
+    schedules = list(schedule_collection.find({}))
     
+    # Assuming sensor_data, num_relays, and current_temperature are defined or fetched similarly
     return render_template('control.html', 
                            sensor_data=sensor_data, 
                            num_relays=num_relays,
-                           schedule_list=schedule_list, 
+                           schedule_list=schedule_list,
+                           schedules=schedules,  
                            current_temperature=current_temperature)
     pass
-
-@app.route('/video_feed')
-def video_feed():
-     return Response(generate_frames(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/latest_controlled_by')
 def latest_controlled_by():
@@ -1008,6 +1426,35 @@ def index():
         return redirect(url_for('main_login'))
 
     # Retrieve user data using the email
+    user = users_collection.find_one({"email": email})
+    if not user:
+        # Handle the case where the user data is not found
+        return "User not found. Please log in again."
+
+    # Ensure the user is not an admin
+    if user.get('user_type') == 'Admin':
+        return redirect(url_for('admin_index'))
+
+    # Fetch schedule data from MongoDB and sort it
+    schedules = list(schedule_collection.find({}))
+
+    return render_template('index.html', 
+                           sensor_data=sensor_data,  # Ensure these variables are defined or passed appropriately
+                           num_relays=num_relays,
+                           schedules=schedules, 
+                           current_temperature=current_temperature)
+    pass
+    
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    # Ensure that the user's email is present in the session
+    email = session.get('email')
+    if not email:
+        # Redirect the user to the login page if the email is not found in the session
+        return redirect(url_for('main_login'))
+
+    # Retrieve user data using the email
     user = mongodb_db.users.find_one({"email": email})
     if not user:
         # Handle the case where the user data is not found
@@ -1016,12 +1463,12 @@ def index():
     # Fetch schedule data from MongoDB and sort it
     schedules = list(schedule_collection.find({}))
 
-    return render_template('index.html', 
+    return render_template('dashboard.html', 
                            sensor_data=sensor_data, 
                            num_relays=num_relays,
                            schedules=schedules, 
                            current_temperature=current_temperature)
-
+    pass
 
 if __name__ == '__main__':
     # Connect MQTT client and subscribe to topics

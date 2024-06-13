@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../static/styles/control/confirm.css">
     <link rel="stylesheet" href="../static/styles/control/ac.css">
     <style>
-        #userDisplay1,
+        #userDisplay1,  
         #userDisplay2,
         #userDisplay3,
         #userDisplay4,
@@ -19,7 +19,7 @@
             font-size: 15px; /* Adjust the value as needed */
         }
     </style>
-    <title>Research&Development</title>
+    <title>Research Directorate</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="index">
+                <a href="dashboard">
                     <span class="material-icons-sharp">monitor</span>
                     <h3>Dashboard</h3>
                 </a>                             
@@ -105,7 +105,7 @@
                     <div class="status">
                 
                         <div class="info">
-                            <h3>Temperature </h3>
+                            <h3>AC Control</h3>
                         </div>
                         <div class="temperature-control">
             
@@ -220,7 +220,7 @@
             <div class="user-profile">
                 <div class="logo">
                     <img src="../static/images/LOGO-MMSU.webp">
-                    <h2>Research&Development</h2>
+                    <h2>Research Directorate</h2>
                     <p>MMSU Garlic Research Center and </p>
                     <p>Food Laboratory</p>
                 </div>
@@ -235,6 +235,28 @@
                 </div>
 
 
+                <div class="activeAlarms">
+                    {% for schedule in schedules %}
+                    <div class="notification">
+                        <div class="content">
+                            <div class="info">
+                                <h3 class="alarmhead">{{ schedule.start_date }} - {{ schedule.end_date }}</h3> <!-- Displaying date range -->
+                                <p>
+                                    Time On: {{ schedule.time_on_start }} - {{ schedule.time_on_end }}
+                                </p>
+                                <p>
+                                    Time Off: {{ schedule.time_off_start }} - {{ schedule.time_off_end }}
+                                </p>
+                            </div>
+                            <span class="Dbutton">
+                                <button class="deleteButton" onclick="confirmDeleteAllSchedules()">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </span>                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
 
         </div>
